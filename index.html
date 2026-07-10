@@ -38,21 +38,16 @@
         <!-- Celestial Moon Structure -->
         <div class="celestial-body" id="moon-element"></div>
         
-        <!-- Randomized Dynamic Stars Container -->
-        <div class="twinkling-stars" id="stars-box"></div>
+        <!-- Dynamic Stars Framework -->
+        <div class="twinkling-stars" id="stars-box">
+            <!-- SVG Overlay Canvas for Constellation Lines -->
+            <svg class="constellation-canvas" id="constellation-svg"></svg>
+        </div>
         
         <!-- Midnight Shooting Stars Engine -->
         <div class="shooting-stars">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
         </div>
         
         <div class="parallax-layer" id="layer-mountain-back"></div>
@@ -75,7 +70,6 @@
         // 1. Generate Rain Engine
         const rainBox = document.getElementById('rain-box');
         const dropCount = 85; 
-        
         for (let i = 0; i < dropCount; i++) {
             const drop = document.createElement('div');
             drop.classList.add('drop');
@@ -86,39 +80,104 @@
             rainBox.appendChild(drop);
         }
 
-        // 2. NEW: Dynamic Randomized Stars Engine
+        // 2. Dynamic Randomized Stars & Constellation Engine
         function generateRandomStars() {
             const starsBox = document.getElementById('stars-box');
-            const starCount = 120; // Adjust for more or fewer stars
+            const starCount = 120; 
 
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                // Completely random positions within the upper 60% of the viewport container
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 60}%`;
                 
-                // Randomized sizing so some stars look deep in space and others look close
-                const size = Math.random() * 2 + 1; // Sizes between 1px and 3px
+                const size = Math.random() * 2 + 1; 
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 
-                // Randomize twinkle speeds and starting points so they don't pulse together
                 star.style.animationDuration = `${2 + Math.random() * 4}s`;
                 star.style.animationDelay = `${Math.random() * 5}s`;
                 
                 starsBox.appendChild(star);
             }
+
+            // Trigger the small chance constellation sequence
+            spawnRareConstellation();
+        }
+
+        function spawnRareConstellation() {
+            // Change 0.2 to adjust probability (0.2 = 20% chance on load/refresh)
+            const spawnChance = 0.2; 
+            if (Math.random() > spawnChance) return; 
+
+            const starsBox = document.getElementById('stars-box');
+            const svgCanvas = document.getElementById('constellation-svg');
+            
+            // Big Dipper structural offset blueprint mapping
+            const bigDipperNodes = [
+                { x: 0,   y: 50 },  // Alkaid
+                { x: 45,  y: 40 },  // Mizar
+                { x: 85,  y: 45 },  // Alioth
+                { x: 130, y: 75 },  // Megrez
+                { x: 135, y: 120 }, // Phad
+                { x: 195, y: 125 }, // Merak
+                { x: 210, y: 65 },  // Dubhe
+                { x: 130, y: 75 }   // Loop back closure line to Megrez
+            ];
+
+            // Random master anchor origin point within safe boundary zones
+            const startX = 15 + (Math.random() * 55); // Viewport % scale
+            const startY = 10 + (Math.random() * 25); // Viewport % scale
+
+            // Wait briefly for container sizing to register completely
+            setTimeout(() => {
+                const baseWidth = starsBox.clientWidth;
+                const baseHeight = starsBox.clientHeight;
+                
+                // Translate initial percentages directly to pixel anchors
+                const originPxX = (startX / 100) * baseWidth;
+                const originPxY = (startY / 100) * baseHeight;
+                
+                const computedPoints = bigDipperNodes.map(node => ({
+                    x: originPxX + node.x,
+                    y: originPxY + node.y
+                }));
+
+                // Drop constellation structural nodes onto the stage
+                computedPoints.forEach((pt, index) => {
+                    // Skip the repeating point item used strictly to close the line geometry
+                    if(index === 7) return; 
+
+                    const cStar = document.createElement('div');
+                    cStar.classList.add('star', 'constellation-star');
+                    cStar.style.left = `${pt.x}px`;
+                    cStar.style.top = `${pt.y}px`;
+                    
+                    // Add staggered fade-in animations for the star nodes
+                    cStar.style.animationDelay = `${0.5 + (index * 0.2)}s`;
+                    starsBox.appendChild(cStar);
+                });
+
+                // Generate vector tracing lines connecting the map array
+                for (let i = 0; i < computedPoints.length - 1; i++) {
+                    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                    line.setAttribute("x1", computedPoints[i].x);
+                    line.setAttribute("y1", computedPoints[i].y);
+                    line.setAttribute("x2", computedPoints[i+1].x);
+                    line.setAttribute("y2", computedPoints[i+1].y);
+                    
+                    // Set gradual sequence lines drawing intervals
+                    line.style.animationDelay = `${1.5 + (i * 0.25)}s`;
+                    svgCanvas.appendChild(line);
+                }
+            }, 100);
         }
         
-        // Fire up the star generation right away
         generateRandomStars();
 
         // 3. Parallax Scroll Physics Engine
         window.addEventListener('scroll', () => {
             const scrollPos = window.pageYOffset;
-            
             const backLayer = document.getElementById('layer-mountain-back');
             const midLayer = document.getElementById('layer-mountain-mid');
             const frontLayer = document.getElementById('layer-mountain-front');
@@ -135,7 +194,6 @@
         // 4. Global State Theme Machine
         function setTheme(themeName, element) {
             document.documentElement.setAttribute('data-theme', themeName);
-
             const buttons = document.querySelectorAll('.theme-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
