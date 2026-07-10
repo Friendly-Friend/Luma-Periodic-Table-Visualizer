@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luma Mental Health - Parallax Scenery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Luma Mental Health</div>
+        <div class="theme-controls">
+            <button class="theme-btn" onclick="setTheme('morning', this)">Morning</button>
+            <button class="theme-btn active" onclick="setTheme('evening', this)">Evening</button>
+            <button class="theme-btn" onclick="setTheme('midnight', this)">Midnight</button>
+            <button class="theme-btn" onclick="setTheme('rain', this)">Rain</button>
+        </div>
+    </header>
+
+    <div class="parallax-container">
+        <div class="rain-container" id="rain-box"></div>
+        
+        <div class="parallax-layer" id="layer-sky"></div>
+        
+        <div class="celestial-body" id="moon-element"></div>
+        
+        <div class="twinkling-stars"></div>
+        
+        <div class="shooting-stars">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="parallax-layer" id="layer-mountain-back"></div>
+        <div class="parallax-layer" id="layer-mountain-mid"></div>
+        <h1 class="hero-title" id="main-title">Find Your Calm</h1>
+        <div class="parallax-layer" id="layer-mountain-front"></div>
+    </div>
+
+    <section class="app-content-section">
+        <div class="container">
+            <h2>Your Sanctuary Awaits</h2>
+            <p>The system now controls an intelligent celestial engine. Toggle to Midnight to see shooting stars and twinkling constellations across the deep space layout.</p>
+            <div class="placeholder-box">
+                [ Main Mental Health App Module Interface / Mockup Placement Area ]
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const rainBox = document.getElementById('rain-box');
+        const dropCount = 85; 
+        
+        for (let i = 0; i < dropCount; i++) {
+            const drop = document.createElement('div');
+            drop.classList.add('drop');
+            drop.style.left = `${Math.random() * 120}%`;
+            drop.style.top = `${Math.random() * -60}px`;
+            drop.style.animationDuration = `${0.4 + Math.random() * 0.4}s`; 
+            drop.style.animationDelay = `${Math.random() * 2}s`;
+            rainBox.appendChild(drop);
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.pageYOffset;
+            
+            const backLayer = document.getElementById('layer-mountain-back');
+            const midLayer = document.getElementById('layer-mountain-mid');
+            const frontLayer = document.getElementById('layer-mountain-front');
+            const mainTitle = document.getElementById('main-title');
+            const moonElement = document.getElementById('moon-element');
+
+            backLayer.style.transform = `translateY(${scrollPos * 0.5}px)`;
+            midLayer.style.transform = `translateY(${scrollPos * 0.25}px)`;
+            frontLayer.style.transform = `translateY(${scrollPos * 0.05}px)`;
+            mainTitle.style.transform = `translateY(${-50 + (scrollPos * 0.35)}px)`;
+            moonElement.style.transform = `translateY(${scrollPos * 0.65}px)`;
+        });
+
+        function setTheme(themeName, element) {
+            document.documentElement.setAttribute('data-theme', themeName);
+
+            const buttons = document.querySelectorAll('.theme-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
