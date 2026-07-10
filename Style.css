@@ -1,5 +1,5 @@
 /* =========================================================
-   Lotus Mental Health App - Mobile Responsive Stylesheet
+   Luma Mental Health App - Clean Icon Navigation Stylesheet
    ========================================================= */
 
 /* --- CORE THEMES CONFIGURATION --- */
@@ -56,48 +56,78 @@ body {
     transition: background-color 1s ease;
 }
 
-/* --- Sticky Navigation Header --- */
+/* --- Clean Fixed Minimalist Header Navigation --- */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 40px;
+    padding: 30px 40px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Aligns things nicely at the top */
     z-index: 1000;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+    background: transparent; /* Completely clear background */
+    pointer-events: none; /* Allows scrolling underneath header space */
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 2px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 1px;
     color: var(--text-color);
+    opacity: 0.5; /* Blends cleanly into the sky background environment */
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
 }
 
+.logo:hover {
+    opacity: 0.9;
+}
+
+/* --- Vertical Right-Side Floating Navigation Container --- */
 .theme-controls {
     display: flex;
+    flex-direction: column; /* Stack icons one below the other */
     gap: 12px;
+    pointer-events: auto; /* Restores button clickability */
 }
 
 .theme-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-color);
-    padding: 8px 16px;
-    border-radius: 20px;
+    width: 42px;  /* Square dimensions for perfect icon framing */
+    height: 42px;
+    border-radius: 50%; /* Smooth circular buttons */
     cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.4;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.theme-btn:hover, .theme-btn.active {
-    background: var(--text-color);
-    color: #111116;
-    border-color: var(--text-color);
-    box-shadow: 0 0 15px var(--accent-color);
+.theme-btn svg {
+    transition: transform 0.3s ease;
+}
+
+/* Active and Hover States */
+.theme-btn:hover {
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+.theme-btn.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.theme-btn.active svg {
+    transform: scale(1.1);
 }
 
 /* --- Parallax Canvas Base Container --- */
@@ -116,8 +146,8 @@ header {
 /* --- CELESTIAL CONFIGURATION (THE MOON) --- */
 .celestial-body {
     position: absolute;
-    top: 60px;       
-    right: 15%;
+    top: 80px;       
+    right: 18%;
     z-index: 2;      
     width: 55px;
     height: 55px;
@@ -360,49 +390,76 @@ header {
 
 
 /* =========================================================
-   NEW: MOBILE RESPONSIVE MEDIA QUERIES (Screens under 768px)
+   MOBILE RESPONSIVE MEDIA QUERIES (Screens under 768px)
    ========================================================= */
 @media (max-width: 768px) {
     
-    /* 1. Fix the layout header for smaller widths */
     header {
-        padding: 15px 20px;
-        flex-direction: column; /* Stack logo above theme switchers */
-        gap: 12px;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+        padding: 20px;
+        /* Keeps logo on left and floating icon stack cleanly on right */
+        flex-direction: row; 
+        justify-content: space-between;
     }
     
     .logo {
-        font-size: 1.25rem;
-        letter-spacing: 1px;
+        font-size: 1rem;
+        margin-top: 10px; /* Slightly matches the top offset of the icons */
     }
 
     .theme-controls {
-        width: 100%;
-        justify-content: center; /* Center the buttons across phone screens */
-        flex-wrap: wrap;       /* Wrap them safely if it's a super tight width */
-        gap: 8px;
+        gap: 8px; /* Slightly tighter stacking on small mobile viewports */
     }
 
     .theme-btn {
-        padding: 6px 12px;
-        font-size: 0.85rem;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .theme-btn svg {
+        width: 16px;
+        height: 16px;
     }
 
-    /* 2. Prevent the parallax layers from flattening or squishing weirdly */
     .parallax-container {
-        height: 60vh; /* Shorter header scope on phone view matches screen bounds */
+        height: 60vh; 
     }
 
     .parallax-layer {
         height: 100%;
-        background-size: auto 100%; /* Force structural assets to hold natural aspect scale */
+        background-size: auto 100%; 
         background-position: bottom center;
     }
 
-    /* 3. Drop down title scale size to keep it from wrapping awkwardly */
     .hero-title {
         font-size: 2.2rem;
         letter-spacing: 2px;
         transform: translateY(-20px);
-        padding
+        padding: 0 15px;
+        width: 100%;
+    }
+
+    .celestial-body {
+        top: 80px; 
+        right: 25%; /* Shift inward slightly to keep clear of vertical right nav */
+        width: 35px;
+        height: 35px;
+    }
+    
+    .app-content-section {
+        padding: 60px 20px;
+    }
+
+    .container h2 {
+        font-size: 1.8rem;
+    }
+
+    .container p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .placeholder-box {
+        height: 300px;
+        font-size: 1rem;
+    }
+}
