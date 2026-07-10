@@ -1,10 +1,9 @@
 /* =========================================================
-   Lotus Mental Health App - Modular Stylesheet (style.css)
+   Lotus Mental Health App - Mobile Responsive Stylesheet
    ========================================================= */
 
 /* --- CORE THEMES CONFIGURATION --- */
 :root {
-    /* Default: Evening (Rich orange/amber sunset tint) */
     --sky-gradient: linear-gradient(to bottom, #1f2a44, #4a2e56, #cf6a32, #e67e22);
     --bg-tint: rgba(230, 126, 34, 0.15);
     --mountain-back: #4d4661;
@@ -24,7 +23,6 @@
 }
 
 [data-theme="midnight"] {
-    /* Deep cosmic purple sky paired with pure rich shades of black/charcoal for the mountains */
     --sky-gradient: linear-gradient(to bottom, #060713, #0f1026, #2d134d);
     --bg-tint: rgba(45, 19, 77, 0.3);
     --mountain-back: #1b1b22;   
@@ -127,363 +125,17 @@ header {
     transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity;
     
-    /* DEFAULT STATE: Evening (Almost Visible Crescent) */
     background: transparent;
     opacity: 0.65;
     box-shadow: -14px 14px 0 0 #fff2e6; 
 }
 
-/* Midnight Theme Override: Radiating Full Silver Orb */
 [data-theme="midnight"] .celestial-body {
     opacity: 0.95;
     background: #ffffff;
     box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.4), 0 0 60px 20px rgba(169, 136, 255, 0.2);
 }
 
-/* Day & Storm Theme Overrides: Hide cleanly */
-[data-theme="morning"] .celestial-body,
-[data-theme="rain"] .celestial-body {
-    opacity: 0;
-    transform: scale(0.5) translateY(30px);
-}
-
-/* --- MIDNIGHT SHOOTING STARS ENGINE --- */
-.shooting-stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2; /* Layer directly on the sky grid */
-    pointer-events: none;
-    display: none; /* Hidden by default on non-night environments */
-}
-
-/* Activate container rendering ONLY inside the midnight scope attribute link */
-[data-theme="midnight"] .shooting-stars {
-    display: block;
-}
-
-.shooting-stars span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 4px;
-    height: 4px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,1);
-    animation: animateStar 3s linear infinite;
-    opacity: 0;
-}
-
-.shooting-stars span::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 300px;
-    height: 1px;
-    background: linear-gradient(90deg, #fff, transparent);
-}
-
-@keyframes animateStar {
-    0% {
-        transform: rotate(315deg) translateX(0);
-        opacity: 1;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        transform: rotate(315deg) translateX(-1000px);
-        opacity: 0;
-    }
-}
-
-/* Custom Spatiotemporal Intervals for Star Array Elements */
-.shooting-stars span:nth-child(1) { top: 0; right: 0; left: initial; animation-delay: 0s; animation-duration: 1s; }
-.shooting-stars span:nth-child(2) { top: 0; right: 80px; left: initial; animation-delay: 0.2s; animation-duration: 3s; }
-.shooting-stars span:nth-child(3) { top: 80px; right: 0px; left: initial; animation-delay: 0.4s; animation-duration: 2s; }
-.shooting-stars span:nth-child(4) { top: 0; right: 180px; left: initial; animation-delay: 0.6s; animation-duration: 1.5s; }
-.shooting-stars span:nth-child(5) { top: 0; right: 400px; left: initial; animation-delay: 0.8s; animation-duration: 2.5s; }
-.shooting-stars span:nth-child(6) { top: 0; right: 600px; left: initial; animation-delay: 1s; animation-duration: 3s; }
-.shooting-stars span:nth-child(7) { top: 300px; right: 0px; left: initial; animation-delay: 1.2s; animation-duration: 1.75s; }
-.shooting-stars span:nth-child(8) { top: 0px; right: 700px; left: initial; animation-delay: 1.4s; animation-duration: 1.25s; }
-.shooting-stars span:nth-child(9) { top: 0px; right: 1000px; left: initial; animation-delay: 0.75s; animation-duration: 2.25s; }
-.shooting-stars span:nth-child(10) { top: 0px; right: 450px; left: initial; animation-delay: 2.75s; animation-duration: 2.75s; }
-
-
-/* --- Sharp Parallax Scenery Layers --- */
-.parallax-layer {
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 110%;
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    background-size: cover;
-    will-change: transform;
-    transition: background-image 1s ease;
-}
-
-#layer-sky { z-index: 1; }
-
-#layer-mountain-back {
-    z-index: 3;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%234d4661" d="M0,450 L250,180 L550,380 L850,120 L1200,420 L1440,250 L1440,600 L0,600 Z"></path></svg>');
-    background-size: 100% 70%;
-}
-[data-theme="midnight"] #layer-mountain-back { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%231b1b22" d="M0,450 L250,180 L550,380 L850,120 L1200,420 L1440,250 L1440,600 L0,600 Z"></path></svg>'); }
-[data-theme="morning"] #layer-mountain-back { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%234f6d7a" d="M0,450 L250,180 L550,380 L850,120 L1200,420 L1440,250 L1440,600 L0,600 Z"></path></svg>'); }
-[data-theme="rain"] #layer-mountain-back { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%232e4053" d="M0,450 L250,180 L550,380 L850,120 L1200,420 L1440,250 L1440,600 L0,600 Z"></path></svg>'); }
-
-#layer-mountain-mid {
-    z-index: 4;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%23382c47" d="M0,500 L350,280 L700,480 L1050,220 L1440,510 L1440,600 L0,600 Z"></path></svg>');
-    background-size: 100% 55%;
-}
-[data-theme="midnight"] #layer-mountain-mid { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%230f1015" d="M0,500 L350,280 L700,480 L1050,220 L1440,510 L1440,600 L0,600 Z"></path></svg>'); }
-[data-theme="morning"] #layer-mountain-mid { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%233d5a6c" d="M0,500 L350,280 L700,480 L1050,220 L1440,510 L1440,600 L0,600 Z"></path></svg>'); }
-[data-theme="rain"] #layer-mountain-mid { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%23212f3d" d="M0,500 L350,280 L700,480 L1050,220 L1440,510 L1440,600 L0,600 Z"></path></svg>'); }
-
-.hero-title {
-    position: relative;
-    z-index: 5;
-    text-align: center;
-    font-size: 4rem;
-    letter-spacing: 4px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    transform: translateY(-50px);
-}
-
-#layer-mountain-front {
-    z-index: 6;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%231f122b" d="M0,520 L180,380 L450,540 L800,320 L1150,510 L1440,360 L1440,600 L0,600 Z"></path></svg>');
-    background-size: 100% 40%;
-}
-[data-theme="midnight"] #layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%23050507" d="M0,520 L180,380 L450,540 L800,320 L1150,510 L1440,360 L1440,600 L0,600 Z"></path></svg>'); }
-[data-theme="morning"] #layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%23233d4d" d="M0,520 L180,380 L450,540 L800,320 L1150,510 L1440,360 L1440,600 L0,600 Z"></path></svg>'); }
-[data-theme="rain"] #layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%2317202a" d="M0,520 L180,380 L450,540 L800,320 L1150,510 L1440,360 L1440,600 L0,600 Z"></path></svg>'); }
-
-/* --- Wind-Swept Storm Framework --- */
-.rain-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 7;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-[data-theme="rain"] .rain-container {
-    opacity: 1;
-}
-
-.drop {
-    position: absolute;
-    background: linear-gradient(transparent, rgba(255, 255, 255, 0.4));
-    width: 1.5px;
-    height: 45px;
-    transform: rotate(20deg);
-    animation: diagonalFall linear infinite;
-}
-
-@keyframes diagonalFall {
-    0% { transform: translateY(-60px) translateX(0px) rotate(20deg); }
-    100% { transform: translateY(105vh) translateX(-200px) rotate(20deg); }
-}
-
-/* --- Content Information Blocks --- */
-.app-content-section {
-    background-color: var(--mountain-front);
-    padding: 100px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 10;
-    transition: background-color 1s ease;
-}
-
-.container {
-    max-width: 1000px;
-    text-align: center;
-}
-
-.container h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: var(--accent-color);
-    transition: color 1s ease;
-}
-
-.container p {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 40px;
-}
-
-.placeholder-box {
-    width: 100%;
-    height: 400px;
-    border: 2px dashed rgba(255,255,255,0.2);
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgba(255,255,255,0.4);
-    font-size: 1.2rem;
-    background: var(--bg-tint);
-    transition: background 1s ease;
-}/* =========================================================
-   Lotus Mental Health App - Modular Stylesheet (style.css)
-   ========================================================= */
-
-/* --- CORE THEMES CONFIGURATION --- */
-:root {
-    /* Evening: Beautiful warm orange/amber sunset tint */
-    --sky-gradient: linear-gradient(to bottom, #1f2a44, #4a2e56, #cf6a32, #e67e22);
-    --bg-tint: rgba(230, 126, 34, 0.15);
-    --mountain-back: #4d4661;
-    --mountain-mid: #382c47;
-    --mountain-front: #1f122b;
-    --text-color: #ffffff;
-    --accent-color: #f39c12;
-}
-
-[data-theme="morning"] {
-    --sky-gradient: linear-gradient(to bottom, #4a7c59, #68b0ab, #c0d6df, #f3c6cf);
-    --bg-tint: rgba(104, 176, 171, 0.15);
-    --mountain-back: #4f6d7a;
-    --mountain-mid: #3d5a6c;
-    --mountain-front: #233d4d;
-    --accent-color: #f3c6cf;
-}
-
-[data-theme="midnight"] {
-    /* Midnight: Pure cosmic deep blue/purple with dark obsidian mountain shadows */
-    --sky-gradient: linear-gradient(to bottom, #060713, #0f1026, #2d134d);
-    --bg-tint: rgba(45, 19, 77, 0.3);
-    --mountain-back: #1b1b22;   
-    --mountain-mid: #0f1015;    
-    --mountain-front: #050507;  
-    --accent-color: #a988ff;
-}
-
-[data-theme="rain"] {
-    --sky-gradient: linear-gradient(to bottom, #2c3e50, #34495e, #5d6d7e, #7f8c8d);
-    --bg-tint: rgba(52, 73, 94, 0.4);
-    --mountain-back: #2e4053;
-    --mountain-mid: #212f3d;
-    --mountain-front: #17202a;
-    --accent-color: #aeb6bf;
-}
-
-/* --- Global Resets --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: var(--mountain-front);
-    color: var(--text-color);
-    overflow-x: hidden;
-    min-height: 2000px;
-    transition: background-color 1s ease;
-}
-
-/* --- Sticky Navigation Header --- */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--text-color);
-}
-
-.theme-controls {
-    display: flex;
-    gap: 12px;
-}
-
-.theme-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-color);
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.theme-btn:hover, .theme-btn.active {
-    background: var(--text-color);
-    color: #111116;
-    border-color: var(--text-color);
-    box-shadow: 0 0 15px var(--accent-color);
-}
-
-/* --- Parallax Canvas Base Container --- */
-.parallax-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--sky-gradient);
-    transition: background 1s ease;
-}
-
-/* --- CELESTIAL CONFIGURATION (THE MOON) --- */
-.celestial-body {
-    position: absolute;
-    top: 60px;       
-    right: 15%;
-    z-index: 2;      
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-    
-    /* DEFAULT STATE: Evening (Crescent) */
-    background: transparent;
-    opacity: 0.65;
-    box-shadow: -14px 14px 0 0 #fff2e6; 
-}
-
-/* Midnight Theme Override: Full Silver Orb */
-[data-theme="midnight"] .celestial-body {
-    opacity: 0.95;
-    background: #ffffff;
-    box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.4), 0 0 60px 20px rgba(169, 136, 255, 0.2);
-}
-
-/* Day & Storm Theme Overrides: Hide cleanly */
 [data-theme="morning"] .celestial-body,
 [data-theme="rain"] .celestial-body {
     opacity: 0;
@@ -496,13 +148,12 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 50%; /* Confined to the upper sky block */
-    z-index: 1;  /* Directly behind the moon and shooting stars */
+    height: 50%; 
+    z-index: 1;  
     pointer-events: none;
     opacity: 0;
     transition: opacity 1s ease;
     
-    /* Generates multiple starry points using layered radial gradients */
     background-image: 
         radial-gradient(circle, #ffffff 1px, transparent 1.5px),
         radial-gradient(circle, #ffffff 1.5px, transparent 2px),
@@ -512,7 +163,6 @@ header {
     background-position: 0 0, 30px 60px, 130px 40px, 90px 150px;
 }
 
-/* Active rendering exclusively on midnight theme hook */
 [data-theme="midnight"] .twinkling-stars {
     opacity: 1;
     animation: pulseTwinkle 4s ease-in-out infinite alternate;
@@ -707,3 +357,52 @@ header {
     background: var(--bg-tint);
     transition: background 1s ease;
 }
+
+
+/* =========================================================
+   NEW: MOBILE RESPONSIVE MEDIA QUERIES (Screens under 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Fix the layout header for smaller widths */
+    header {
+        padding: 15px 20px;
+        flex-direction: column; /* Stack logo above theme switchers */
+        gap: 12px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+    }
+    
+    .logo {
+        font-size: 1.25rem;
+        letter-spacing: 1px;
+    }
+
+    .theme-controls {
+        width: 100%;
+        justify-content: center; /* Center the buttons across phone screens */
+        flex-wrap: wrap;       /* Wrap them safely if it's a super tight width */
+        gap: 8px;
+    }
+
+    .theme-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    /* 2. Prevent the parallax layers from flattening or squishing weirdly */
+    .parallax-container {
+        height: 60vh; /* Shorter header scope on phone view matches screen bounds */
+    }
+
+    .parallax-layer {
+        height: 100%;
+        background-size: auto 100%; /* Force structural assets to hold natural aspect scale */
+        background-position: bottom center;
+    }
+
+    /* 3. Drop down title scale size to keep it from wrapping awkwardly */
+    .hero-title {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+        transform: translateY(-20px);
+        padding
