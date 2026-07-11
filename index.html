@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luma Mental Health - Parallax Scenery</title>
+    <title>Luma Mental Health</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,19 +28,11 @@
 
     <div class="parallax-container">
         <div class="rain-container" id="rain-box"></div>
-        
         <div class="parallax-layer" id="layer-sky"></div>
         
-        <div class="celestial-wrapper" id="moon-element">
-            <svg viewBox="0 0 100 100" class="moon-svg">
-                <circle cx="50" cy="50" r="45" class="moon-body" />
-                <path d="" class="moon-shadow-mask" id="moon-shadow-path" />
-            </svg>
-        </div>
+        <div class="moon" id="moon-element"></div>
         
-        <div class="twinkling-stars" id="stars-box">
-            <svg class="constellation-canvas" id="constellation-svg"></svg>
-        </div>
+        <div class="twinkling-stars" id="stars-box"></div>
         
         <div class="shooting-stars">
             <span></span><span></span><span></span><span></span><span></span>
@@ -56,32 +48,36 @@
     <section class="app-content-section">
         <div class="container">
             <h2>Your Sanctuary Awaits</h2>
-            <p>The system now controls an intelligent celestial engine. Toggle to Midnight repeatedly to cycle through the lunar system and view changing constellations across deep space.</p>
+            <p>Experience a fluid UI scenery built around lightweight parallax layers and real-time environmental theme switching.</p>
             <div class="placeholder-box">
-                [ Main Mental Health App Module Interface / Mockup Placement Area ]
+                [ Main Mental Health App Module Interface Area ]
             </div>
         </div>
     </section>
 
     <script>
-        // 1. Generate Rain Engine
+        // 1. Optimized High-Speed Precipitation Loop
         const rainBox = document.getElementById('rain-box');
-        const dropCount = 85; 
+        const dropCount = 60; // Lower footprint count with faster animations for identical visual density
+        const rainFragment = document.createDocumentFragment();
+        
         for (let i = 0; i < dropCount; i++) {
             const drop = document.createElement('div');
             drop.classList.add('drop');
             drop.style.left = `${Math.random() * 120}%`;
-            drop.style.top = `${Math.random() * -60}px`;
-            drop.style.animationDuration = `${0.4 + Math.random() * 0.4}s`; 
+            drop.style.top = `${Math.random() * -50}px`;
+            drop.style.animationDuration = `${0.3 + Math.random() * 0.3}s`;
             drop.style.animationDelay = `${Math.random() * 2}s`;
-            rainBox.appendChild(drop);
+            rainFragment.appendChild(drop);
         }
+        rainBox.appendChild(rainFragment);
 
-        // 2. Dynamic Randomized Stars & Constellation Engine
-        function generateRandomStars() {
+        // 2. Fragment-Cached Star Generation
+        function generateStars() {
             const starsBox = document.getElementById('stars-box');
-            starsBox.querySelectorAll('.star').forEach(s => s.remove()); 
-            const starCount = 120; 
+            starsBox.innerHTML = '';
+            const starCount = 80;
+            const starFragment = document.createDocumentFragment();
 
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
@@ -89,131 +85,52 @@
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 60}%`;
                 
-                const size = Math.random() * 2 + 1; 
+                const size = Math.random() * 2 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
+                star.style.animationDuration = `${2 + Math.random() * 3}s`;
+                star.style.animationDelay = `${Math.random() * 4}s`;
                 
-                star.style.animationDuration = `${2 + Math.random() * 4}s`;
-                star.style.animationDelay = `${Math.random() * 5}s`;
-                
-                starsBox.appendChild(star);
+                starFragment.appendChild(star);
             }
-            spawnRareConstellation();
+            starsBox.appendChild(starFragment);
         }
+        generateStars();
 
-        function spawnRareConstellation() {
-            const svgCanvas = document.getElementById('constellation-svg');
-            svgCanvas.innerHTML = ''; 
-            
-            const spawnChance = 0.2; 
-            if (Math.random() > spawnChance) return; 
+        // 3. GPU-Accelerated Passive Scroll Frame Loop
+        const backLayer = document.getElementById('layer-mountain-back');
+        const midLayer = document.getElementById('layer-mountain-mid');
+        const frontLayer = document.getElementById('layer-mountain-front');
+        const mainTitle = document.getElementById('main-title');
+        const moonElement = document.getElementById('moon-element');
 
-            const starsBox = document.getElementById('stars-box');
-            
-            const bigDipperNodes = [
-                { x: 0,   y: 50 },  { x: 45,  y: 40 },  { x: 85,  y: 45 },  
-                { x: 130, y: 75 },  { x: 135, y: 120 }, { x: 195, y: 125 }, 
-                { x: 210, y: 65 },  { x: 130, y: 75 }   
-            ];
+        let ticking = false;
 
-            const startX = 15 + (Math.random() * 55); 
-            const startY = 10 + (Math.random() * 25); 
-
-            setTimeout(() => {
-                const baseWidth = starsBox.clientWidth;
-                const baseHeight = starsBox.clientHeight;
-                
-                const originPxX = (startX / 100) * baseWidth;
-                const originPxY = (startY / 100) * baseHeight;
-                
-                const computedPoints = bigDipperNodes.map(node => ({
-                    x: originPxX + node.x,
-                    y: originPxY + node.y
-                }));
-
-                computedPoints.forEach((pt, index) => {
-                    if(index === 7) return; 
-                    const cStar = document.createElement('div');
-                    cStar.classList.add('star', 'constellation-star');
-                    cStar.style.left = `${pt.x}px`;
-                    cStar.style.top = `${pt.y}px`;
-                    cStar.style.animationDelay = `${0.5 + (index * 0.2)}s`;
-                    starsBox.appendChild(cStar);
-                });
-
-                for (let i = 0; i < computedPoints.length - 1; i++) {
-                    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                    line.setAttribute("x1", computedPoints[i].x);
-                    line.setAttribute("y1", computedPoints[i].y);
-                    line.setAttribute("x2", computedPoints[i+1].x);
-                    line.setAttribute("y2", computedPoints[i+1].y);
-                    line.style.animationDelay = `${1.5 + (i * 0.25)}s`;
-                    svgCanvas.appendChild(line);
-                }
-            }, 100);
-        }
-        
-        generateRandomStars();
-
-        // 3. Parallax Scroll Physics Engine
         window.addEventListener('scroll', () => {
-            const scrollPos = window.pageYOffset;
-            const backLayer = document.getElementById('layer-mountain-back');
-            const midLayer = document.getElementById('layer-mountain-mid');
-            const frontLayer = document.getElementById('layer-mountain-front');
-            const mainTitle = document.getElementById('main-title');
-            const moonElement = document.getElementById('moon-element');
-
-            backLayer.style.transform = `translateY(${scrollPos * 0.5}px)`;
-            midLayer.style.transform = `translateY(${scrollPos * 0.25}px)`;
-            frontLayer.style.transform = `translateY(${scrollPos * 0.05}px)`;
-            mainTitle.style.transform = `translateY(${-50 + (scrollPos * 0.35)}px)`;
-            moonElement.style.transform = `translateY(${scrollPos * 0.65}px)`;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollPos = window.pageYOffset;
+                    
+                    backLayer.style.transform = `translate3d(0, ${scrollPos * 0.45}px, 0)`;
+                    midLayer.style.transform = `translate3d(0, ${scrollPos * 0.25}px, 0)`;
+                    frontLayer.style.transform = `translate3d(0, ${scrollPos * 0.05}px, 0)`;
+                    mainTitle.style.transform = `translate3d(0, ${-50 + (scrollPos * 0.35)}px, 0)`;
+                    moonElement.style.transform = `translate3d(0, ${scrollPos * 0.55}px, 0)`;
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
-        // 4. Vector Geometry Phase Path Matrix
-        const vectorPhases = {
-            crescent: "M 50 5 A 45 45 0 0 0 50 95 A 33 45 0 0 1 50 5 Z",
-            half:     "M 50 5 A 45 45 0 0 0 50 95 Z",
-            gibbous:  "M 50 5 A 45 45 0 0 0 50 95 A 25 45 0 0 0 50 5 Z",
-            full:     "M 50 5 A 45 45 0 0 0 50 5 Z", // Empty path data string = no mask
-            new:      "M 50 5 A 45 45 0 1 0 50.1 5 Z"  // Complete covering disk
-        };
-        
-        const phaseSequence = ['crescent', 'half', 'gibbous', 'full', 'new'];
-        let currentPhaseIndex = 0; 
-
-        // 5. Global State Theme Machine
+        // 4. Centralized Theme Router
         function setTheme(themeName, element) {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const shadowPath = document.getElementById('moon-shadow-path');
-
-            // Handle Phase Progression Logic on repeated Midnight Clicks
-            if (themeName === 'midnight' && currentTheme === 'midnight') {
-                currentPhaseIndex = (currentPhaseIndex + 1) % phaseSequence.length;
-                const nextPhase = phaseSequence[currentPhaseIndex];
-                shadowPath.setAttribute('d', vectorPhases[nextPhase]);
-                
-                generateRandomStars();
-                return;
-            }
-
             document.documentElement.setAttribute('data-theme', themeName);
             
-            // Set phase state geometry based on theme choice
-            if (themeName === 'midnight') {
-                shadowPath.setAttribute('d', vectorPhases[phaseSequence[currentPhaseIndex]]);
-            } else if (themeName === 'evening') {
-                shadowPath.setAttribute('d', vectorPhases['crescent']); // Evening matches a clean classic crescent
-            }
-
             const buttons = document.querySelectorAll('.theme-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
         }
-        
-        // Init default look
-        document.getElementById('moon-shadow-path').setAttribute('d', vectorPhases['crescent']);
     </script>
 </body>
 </html>
