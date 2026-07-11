@@ -17,7 +17,7 @@
             <button class="theme-btn active" onclick="setTheme('evening', this)" title="Evening">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0M12 2v4M5.22 10.22l2.83 2.83M18.78 10.22l-2.83 2.83M2 22h20"></path></svg>
             </button>
-            <button class="theme-btn" onclick="setTheme('midnight', this)" id="midnight-btn" title="Midnight Cycle">
+            <button class="theme-btn" onclick="setTheme('midnight', this)" title="Midnight">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
             </button>
             <button class="theme-btn" onclick="setTheme('rain', this)" title="Rain">
@@ -31,9 +31,11 @@
         
         <div class="parallax-layer" id="layer-sky"></div>
         
-        <div class="celestial-wrapper" id="moon-element" data-phase="crescent">
-            <div class="moon-base"></div>
-            <div class="moon-shadow"></div>
+        <div class="celestial-wrapper" id="moon-element">
+            <svg viewBox="0 0 100 100" class="moon-svg">
+                <circle cx="50" cy="50" r="45" class="moon-body" />
+                <path d="" class="moon-shadow-mask" id="moon-shadow-path" />
+            </svg>
         </div>
         
         <div class="twinkling-stars" id="stars-box">
@@ -78,7 +80,7 @@
         // 2. Dynamic Randomized Stars & Constellation Engine
         function generateRandomStars() {
             const starsBox = document.getElementById('stars-box');
-            starsBox.querySelectorAll('.star').forEach(s => s.remove()); // Clear old regular stars if re-called
+            starsBox.querySelectorAll('.star').forEach(s => s.remove()); 
             const starCount = 120; 
 
             for (let i = 0; i < starCount; i++) {
@@ -101,7 +103,7 @@
 
         function spawnRareConstellation() {
             const svgCanvas = document.getElementById('constellation-svg');
-            svgCanvas.innerHTML = ''; // Wipe clean previous traces
+            svgCanvas.innerHTML = ''; 
             
             const spawnChance = 0.2; 
             if (Math.random() > spawnChance) return; 
@@ -169,40 +171,49 @@
             moonElement.style.transform = `translateY(${scrollPos * 0.65}px)`;
         });
 
-        // 4. Moon Cycle State Array Tracker
-        const moonPhases = ['crescent', 'half', 'gibbous', 'full', 'new'];
-        let currentPhaseIndex = 0; // Starts at crescent
+        // 4. Vector Geometry Phase Path Matrix
+        const vectorPhases = {
+            crescent: "M 50 5 A 45 45 0 0 0 50 95 A 33 45 0 0 1 50 5 Z",
+            half:     "M 50 5 A 45 45 0 0 0 50 95 Z",
+            gibbous:  "M 50 5 A 45 45 0 0 0 50 95 A 25 45 0 0 0 50 5 Z",
+            full:     "M 50 5 A 45 45 0 0 0 50 5 Z", // Empty path data string = no mask
+            new:      "M 50 5 A 45 45 0 1 0 50.1 5 Z"  // Complete covering disk
+        };
+        
+        const phaseSequence = ['crescent', 'half', 'gibbous', 'full', 'new'];
+        let currentPhaseIndex = 0; 
 
         // 5. Global State Theme Machine
         function setTheme(themeName, element) {
-            const moonEl = document.getElementById('moon-element');
             const currentTheme = document.documentElement.getAttribute('data-theme');
+            const shadowPath = document.getElementById('moon-shadow-path');
 
-            // If clicking midnight button while ALREADY on midnight, cycle the moon phase!
+            // Handle Phase Progression Logic on repeated Midnight Clicks
             if (themeName === 'midnight' && currentTheme === 'midnight') {
-                currentPhaseIndex = (currentPhaseIndex + 1) % moonPhases.length;
-                moonEl.setAttribute('data-phase', moonPhases[currentPhaseIndex]);
+                currentPhaseIndex = (currentPhaseIndex + 1) % phaseSequence.length;
+                const nextPhase = phaseSequence[currentPhaseIndex];
+                shadowPath.setAttribute('d', vectorPhases[nextPhase]);
                 
-                // Regenerate sky patterns to add life to phase shifting
                 generateRandomStars();
                 return;
             }
 
-            // Normal theme shifting rules
             document.documentElement.setAttribute('data-theme', themeName);
             
+            // Set phase state geometry based on theme choice
             if (themeName === 'midnight') {
-                // Default fallback configuration when entering fresh from another theme
-                moonEl.setAttribute('data-phase', moonPhases[currentPhaseIndex]);
+                shadowPath.setAttribute('d', vectorPhases[phaseSequence[currentPhaseIndex]]);
             } else if (themeName === 'evening') {
-                // Force custom crescent positioning specifically back for evening values
-                moonEl.setAttribute('data-phase', 'crescent');
+                shadowPath.setAttribute('d', vectorPhases['crescent']); // Evening matches a clean classic crescent
             }
 
             const buttons = document.querySelectorAll('.theme-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
         }
+        
+        // Init default look
+        document.getElementById('moon-shadow-path').setAttribute('d', vectorPhases['crescent']);
     </script>
 </body>
 </html>
