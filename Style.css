@@ -190,7 +190,7 @@ header {
     background-position: bottom center;
     background-size: cover;
     will-change: transform;
-    backface-visibility: hidden; /* Bypasses mobile layout invalidation paint routines */
+    backface-visibility: hidden; 
     transition: background-image 0.8s ease;
 }
 
