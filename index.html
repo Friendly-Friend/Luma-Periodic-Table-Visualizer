@@ -261,13 +261,13 @@
             }
         }
 
-        // Complete 118 Elements Chemistry Matrix - Mapped to true scientific row/col grid layouts
+        // FULL 118 PERIODIC TABLE DATA MATRIX
         const elementMap = [
-            // Row 1
+            // Period 1
             {num:1,sym:"H",name:"Hydrogen",group:"nonmetal",col:1,row:1,shells:[1],weight:1.008,neutrons:0,valency:1},
             {num:2,sym:"He",name:"Helium",group:"noble",col:18,row:1,shells:[2],weight:4.0026,neutrons:2,valency:0},
             
-            // Row 2
+            // Period 2
             {num:3,sym:"Li",name:"Lithium",group:"alkali",col:1,row:2,shells:[2,1],weight:6.94,neutrons:4,valency:1},
             {num:4,sym:"Be",name:"Beryllium",group:"alkaline",col:2,row:2,shells:[2,2],weight:9.0122,neutrons:5,valency:2},
             {num:5,sym:"B",name:"Boron",group:"metalloid",col:13,row:2,shells:[2,3],weight:10.81,neutrons:6,valency:3},
@@ -277,7 +277,7 @@
             {num:9,sym:"F",name:"Fluorine",group:"halogen",col:17,row:2,shells:[2,7],weight:18.998,neutrons:10,valency:-1},
             {num:10,sym:"Ne",name:"Neon",group:"noble",col:18,row:2,shells:[2,8],weight:20.180,neutrons:10,valency:0},
             
-            // Row 3
+            // Period 3
             {num:11,sym:"Na",name:"Sodium",group:"alkali",col:1,row:3,shells:[2,8,1],weight:22.990,neutrons:12,valency:1},
             {num:12,sym:"Mg",name:"Magnesium",group:"alkaline",col:2,row:3,shells:[2,8,2],weight:24.305,neutrons:12,valency:2},
             {num:13,sym:"Al",name:"Aluminium",group:"post-transition",col:13,row:3,shells:[2,8,3],weight:26.982,neutrons:14,valency:3},
@@ -287,7 +287,7 @@
             {num:17,sym:"Cl",name:"Chlorine",group:"halogen",col:17,row:3,shells:[2,8,7],weight:35.45,neutrons:18,valency:-1},
             {num:18,sym:"Ar",name:"Argon",group:"noble",col:18,row:3,shells:[2,8,8],weight:39.948,neutrons:22,valency:0},
             
-            // Row 4
+            // Period 4
             {num:19,sym:"K",name:"Potassium",group:"alkali",col:1,row:4,shells:[2,8,8,1],weight:39.098,neutrons:20,valency:1},
             {num:20,sym:"Ca",name:"Calcium",group:"alkaline",col:2,row:4,shells:[2,8,8,2],weight:40.078,neutrons:20,valency:2},
             {num:21,sym:"Sc",name:"Scandium",group:"transition",col:3,row:4,shells:[2,8,9,2],weight:44.956,neutrons:24,valency:3},
@@ -307,7 +307,7 @@
             {num:35,sym:"Br",name:"Bromine",group:"halogen",col:17,row:4,shells:[2,8,18,7],weight:79.904,neutrons:45,valency:-1},
             {num:36,sym:"Kr",name:"Krypton",group:"noble",col:18,row:4,shells:[2,8,18,8],weight:83.798,neutrons:48,valency:0},
             
-            // Row 5
+            // Period 5
             {num:37,sym:"Rb",name:"Rubidium",group:"alkali",col:1,row:5,shells:[2,8,18,8,1],weight:85.468,neutrons:48,valency:1},
             {num:38,sym:"Sr",name:"Strontium",group:"alkaline",col:2,row:5,shells:[2,8,18,8,2],weight:87.62,neutrons:50,valency:2},
             {num:39,sym:"Y",name:"Yttrium",group:"transition",col:3,row:5,shells:[2,8,18,9,2],weight:88.906,neutrons:50,valency:3},
@@ -327,7 +327,7 @@
             {num:53,sym:"I",name:"Iodine",group:"halogen",col:17,row:5,shells:[2,8,18,18,7],weight:126.90,neutrons:74,valency:-1},
             {num:54,sym:"Xe",name:"Xenon",group:"noble",col:18,row:5,shells:[2,8,18,18,8],weight:131.29,neutrons:77,valency:0},
             
-            // Row 6 (With space for Lanthanides at col 3)
+            // Period 6
             {num:55,sym:"Cs",name:"Caesium",group:"alkali",col:1,row:6,shells:[2,8,18,18,8,1],weight:132.91,neutrons:78,valency:1},
             {num:56,sym:"Ba",name:"Barium",group:"alkaline",col:2,row:6,shells:[2,8,18,18,8,2],weight:137.33,neutrons:81,valency:2},
             {num:72,sym:"Hf",name:"Hafnium",group:"transition",col:4,row:6,shells:[2,8,18,32,10,2],weight:178.49,neutrons:106,valency:4},
@@ -346,7 +346,7 @@
             {num:85,sym:"At",name:"Astatine",group:"metalloid",col:17,row:6,shells:[2,8,18,32,18,7],weight:210,neutrons:125,valency:-1},
             {num:86,sym:"Rn",name:"Radon",group:"noble",col:18,row:6,shells:[2,8,18,32,18,8],weight:222,neutrons:136,valency:0},
             
-            // Row 7 (With space for Actinides at col 3)
+            // Period 7
             {num:87,sym:"Fr",name:"Francium",group:"alkali",col:1,row:7,shells:[2,8,18,32,18,8,1],weight:223,neutrons:136,valency:1},
             {num:88,sym:"Ra",name:"Radium",group:"alkaline",col:2,row:7,shells:[2,8,18,32,18,8,2],weight:226,neutrons:138,valency:2},
             {num:104,sym:"Rf",name:"Rutherfordium",group:"transition",col:4,row:7,shells:[2,8,18,32,32,10,2],weight:267,neutrons:163,valency:4},
@@ -365,7 +365,7 @@
             {num:117,sym:"Ts",name:"Tennessine",group:"unknown",col:17,row:7,shells:[2,8,18,32,32,18,7],weight:294,neutrons:177,valency:-1},
             {num:118,sym:"Og",name:"Oganesson",group:"unknown",col:18,row:7,shells:[2,8,18,32,32,18,8],weight:294,neutrons:176,valency:0},
             
-            // Row 9: Lanthanides (Offset underneath, row 9 creates an empty visual row spacing buffer)
+            // Row 9: Lanthanides (La-Lu)
             {num:57,sym:"La",name:"Lanthanum",group:"lanthanide",col:4,row:9,shells:[2,8,18,18,9,2],weight:138.91,neutrons:82,valency:3},
             {num:58,sym:"Ce",name:"Cerium",group:"lanthanide",col:5,row:9,shells:[2,8,18,19,9,2],weight:140.12,neutrons:82,valency:3},
             {num:59,sym:"Pr",name:"Praseodymium",group:"lanthanide",col:6,row:9,shells:[2,8,18,21,8,2],weight:140.91,neutrons:82,valency:3},
@@ -382,7 +382,7 @@
             {num:70,sym:"Yb",name:"Ytterbium",group:"lanthanide",col:17,row:9,shells:[2,8,18,32,8,2],weight:173.05,neutrons:103,valency:3},
             {num:71,sym:"Lu",name:"Lutetium",group:"lanthanide",col:18,row:9,shells:[2,8,18,32,9,2],weight:174.97,neutrons:104,valency:3},
             
-            // Row 10: Actinides (Offset directly beneath Lanthanides)
+            // Row 10: Actinides (Ac-Lr)
             {num:89,sym:"Ac",name:"Actinium",group:"actinide",col:4,row:10,shells:[2,8,18,32,18,9,2],weight:227,neutrons:138,valency:3},
             {num:90,sym:"Th",name:"Thorium",group:"actinide",col:5,row:10,shells:[2,8,18,32,18,10,2],weight:232.04,neutrons:142,valency:4},
             {num:91,sym:"Pa",name:"Protactinium",group:"actinide",col:6,row:10,shells:[2,8,18,32,20,9,2],weight:231.04,neutrons:140,valency:5},
