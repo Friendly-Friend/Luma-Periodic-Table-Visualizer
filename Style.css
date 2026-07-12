@@ -3,61 +3,62 @@
    ========================================================= */
 
 :root {
-    /* Base Core Environment Layering */
+    /* Quantum Cyberpunk Theme (Default) */
     --sky-gradient: linear-gradient(135deg, #090a15 0%, #111326 50%, #1a1c38 100%);
     --bg-tint: rgba(26, 28, 56, 0.25);
     --mountain-back: #181a30;
     --mountain-mid: #101222;
-    --mountain-front: #06070d; /* Core structural canvas background */
+    --mountain-front: #06070d;
     --text-color: #f1f3f9;
-    --accent-color: #00f0ff; /* Electric Cyan */
+    --accent-color: #00f0ff;
     --modal-bg: rgba(6, 7, 13, 0.98);
     --card-surface: rgba(255, 255, 255, 0.04);
     --border-color: rgba(255, 255, 255, 0.09);
 
-    /* Scientific Element Categorization Tokens */
-    --elem-bg-nonmetal: rgba(0, 255, 136, 0.12);       /* Radiant Matrix Green */
+    /* Category Specific Color Tokens */
+    --elem-bg-nonmetal: rgba(0, 255, 136, 0.12);
     --elem-border-nonmetal: #00ff88;
-    --elem-bg-noble: rgba(188, 19, 254, 0.15);         /* Plasma Violet */
+    --elem-bg-noble: rgba(188, 19, 254, 0.15);
     --elem-border-noble: #bc13fe;
-    --elem-bg-alkali: rgba(255, 0, 85, 0.15);          /* Reactive Coral Red */
+    --elem-bg-alkali: rgba(255, 0, 85, 0.15);
     --elem-border-alkali: #ff0055;
-    --elem-bg-alkaline: rgba(255, 170, 0, 0.15);       /* Kinetic Orange */
+    --elem-bg-alkaline: rgba(255, 170, 0, 0.15);
     --elem-border-alkaline: #ffaa00;
-    --elem-bg-transition: rgba(0, 180, 255, 0.12);     /* Cobalt Blue */
+    --elem-bg-transition: rgba(0, 180, 255, 0.12);
     --elem-border-transition: #00b4ff;
-    --elem-bg-metalloid: rgba(255, 234, 0, 0.12);      /* Laser Yellow */
+    --elem-bg-metalloid: rgba(255, 234, 0, 0.12);
     --elem-border-metalloid: #ffea00;
-    --elem-bg-other: rgba(0, 221, 255, 0.12);          /* Turquoise Ice */
+    --elem-bg-other: rgba(0, 221, 255, 0.12);
     --elem-border-other: #00ddff;
 }
 
 [data-theme="morning"] {
-    --sky-gradient: linear-gradient(to bottom, #e1eec3, #f05053);
-    --bg-tint: rgba(240, 80, 83, 0.06);
-    --mountain-back: #7f8c8d;
-    --mountain-mid: #34495e;
-    --mountain-front: #2c3e50;
-    --accent-color: #e74c3c;
-    --text-color: #2c3e50;
-    --modal-bg: rgba(255, 255, 255, 0.98);
-    --card-surface: rgba(0, 0, 0, 0.02);
-    --border-color: rgba(0, 0, 0, 0.12);
+    /* Fixed: Beautiful Solar Flare Desert Dusk Variant (Replaced Harsh White Theme) */
+    --sky-gradient: linear-gradient(135deg, #2b101d 0%, #4a1c31 50%, #632d36 100%);
+    --bg-tint: rgba(99, 45, 54, 0.15);
+    --mountain-back: #3d1424;
+    --mountain-mid: #240a15;
+    --mountain-front: #14040b;
+    --accent-color: #ff5e7e;
+    --text-color: #ffe6eb;
+    --modal-bg: rgba(20, 4, 11, 0.99);
+    --card-surface: rgba(255, 94, 126, 0.05);
+    --border-color: rgba(255, 94, 126, 0.18);
 
-    --elem-bg-nonmetal: rgba(46, 204, 113, 0.15);
-    --elem-border-nonmetal: #2ec4b6;
-    --elem-bg-noble: rgba(155, 89, 182, 0.15);
-    --elem-border-noble: #9b59b6;
-    --elem-bg-alkali: rgba(231, 76, 60, 0.15);
-    --elem-border-alkali: #e74c3c;
-    --elem-bg-alkaline: rgba(241, 196, 15, 0.15);
-    --elem-border-alkaline: #f1c40f;
-    --elem-bg-transition: rgba(52, 152, 219, 0.15);
-    --elem-border-transition: #3498db;
-    --elem-bg-metalloid: rgba(230, 126, 34, 0.15);
-    --elem-border-metalloid: #e67e22;
-    --elem-bg-other: rgba(149, 165, 166, 0.15);
-    --elem-border-other: #7f8c8d;
+    --elem-bg-nonmetal: rgba(0, 255, 136, 0.1);
+    --elem-border-nonmetal: #00ff88;
+    --elem-bg-noble: rgba(188, 19, 254, 0.1);
+    --elem-border-noble: #bc13fe;
+    --elem-bg-alkali: rgba(255, 94, 126, 0.15);
+    --elem-border-alkali: #ff5e7e;
+    --elem-bg-alkaline: rgba(255, 170, 0, 0.1);
+    --elem-border-alkaline: #ffaa00;
+    --elem-bg-transition: rgba(0, 180, 255, 0.1);
+    --elem-border-transition: #00b4ff;
+    --elem-bg-metalloid: rgba(255, 234, 0, 0.1);
+    --elem-border-metalloid: #ffea00;
+    --elem-bg-other: rgba(0, 221, 255, 0.1);
+    --elem-border-other: #00ddff;
 }
 
 [data-theme="midnight"] {
@@ -74,14 +75,14 @@
 }
 
 [data-theme="rain"] {
-    --sky-gradient: linear-gradient(to bottom, #3a6073, #3a7bd5);
-    --bg-tint: rgba(58, 123, 213, 0.1);
-    --mountain-back: #566573;
-    --mountain-mid: #2c3e50;
-    --mountain-front: #1c2833;
-    --accent-color: #bdc3c7;
-    --text-color: #f2f4f4;
-    --modal-bg: rgba(28, 40, 51, 0.98);
+    --sky-gradient: linear-gradient(to bottom, #102027, #37474f);
+    --bg-tint: rgba(55, 71, 79, 0.15);
+    --mountain-back: #263238;
+    --mountain-mid: #1c2529;
+    --mountain-front: #0b0e10;
+    --accent-color: #90a4ae;
+    --text-color: #eceff1;
+    --modal-bg: rgba(11, 14, 16, 0.98);
 }
 
 * {
@@ -95,7 +96,7 @@ body {
     background-color: var(--mountain-front);
     color: var(--text-color);
     overflow-x: hidden;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 header {
@@ -127,7 +128,7 @@ header {
 }
 
 .theme-btn {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
     color: var(--text-color);
     width: 38px;
@@ -139,14 +140,13 @@ header {
     align-items: center;
     transition: all 0.2s ease;
 }
-.theme-btn:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-.theme-btn.active { background: var(--text-color); color: var(--mountain-front); }
+.theme-btn:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
+.theme-btn.active { background: var(--text-color); color: var(--mountain-front); border-color: var(--text-color); }
 
-/* Parallax Hero Wrapper Graphic Banner */
 .parallax-container {
     position: relative;
     width: 100%;
-    height: 45vh;
+    height: 40vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -158,10 +158,10 @@ header {
 .hero-title {
     position: relative;
     z-index: 5;
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 800;
     letter-spacing: -1px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
 
 .parallax-layer {
@@ -176,13 +176,13 @@ header {
     will-change: transform;
 }
 
-#layer-mountain-back { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%232c3e50" opacity="0.5" d="M0,450 L300,220 L650,400 L950,180 L1300,430 L1440,320 L1440,600 L0,600 Z"></path></svg>'); }
-#layer-mountain-mid { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%231f2d3d" opacity="0.7" d="M0,490 L400,310 L800,500 L1150,260 L1440,520 L1440,600 L0,600 Z"></path></svg>'); }
-#layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%230f171e" d="M0,530 L200,410 L500,560 L900,360 L1200,530 L1440,400 L1440,600 L0,600 Z"></path></svg>'); }
+#layer-mountain-back { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%231c1d30" opacity="0.4" d="M0,450 L300,220 L650,400 L950,180 L1300,430 L1440,320 L1440,600 L0,600 Z"></path></svg>'); }
+#layer-mountain-mid { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%23111222" opacity="0.6" d="M0,490 L400,310 L800,500 L1150,260 L1440,520 L1440,600 L0,600 Z"></path></svg>'); }
+#layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%2306070d" d="M0,530 L200,410 L500,560 L900,360 L1200,530 L1440,400 L1440,600 L0,600 Z"></path></svg>'); }
 
 .rain-container, .twinkling-stars, .shooting-stars { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
-.drop { position: absolute; background: linear-gradient(transparent, #fff); width:1px; height:30px; animation: fall 0.6s linear infinite; }
-@keyframes fall { 0% { transform: translateY(-50px); } 100% { transform: translateY(50vh); } }
+.drop { position: absolute; background: linear-gradient(transparent, rgba(255,255,255,0.4)); width:1px; height:30px; animation: fall 0.6s linear infinite; }
+@keyframes fall { 0% { transform: translateY(-50px); } 100% { transform: translateY(40vh); } }
 
 /* =========================================================
    MOLECULAR SANDBOX WORKBENCH STYLES
@@ -203,7 +203,7 @@ header {
     max-width: 1400px;
     width: 100%;
     padding: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .sandbox-header {
@@ -214,22 +214,23 @@ header {
 }
 
 .sandbox-header h3 { font-size: 1.3rem; font-weight: 700; color: var(--accent-color); }
-.sandbox-desc { font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px; text-align: left; }
+.sandbox-desc { font-size: 0.9rem; opacity: 0.6; margin-bottom: 20px; text-align: left; }
 
 .clear-btn {
-    background: rgba(231, 76, 60, 0.2);
-    border: 1px solid rgba(231, 76, 60, 0.4);
-    color: #e74c3c;
+    background: rgba(255, 0, 85, 0.1);
+    border: 1px solid rgba(255, 0, 85, 0.3);
+    color: #ff0055;
     padding: 6px 16px;
     border-radius: 8px;
     font-size: 0.85rem;
     cursor: pointer;
     font-weight: 600;
+    transition: all 0.2s;
 }
-.clear-btn:hover { background: #e74c3c; color: white; }
+.clear-btn:hover { background: #ff0055; color: white; }
 
 .sandbox-deck {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.3);
     border: 1px dashed var(--border-color);
     border-radius: 12px;
     min-height: 80px;
@@ -245,7 +246,7 @@ header {
 
 .workbench-element-tag {
     background: var(--accent-color);
-    color: var(--mountain-front);
+    color: #06070d;
     padding: 8px 16px;
     border-radius: 8px;
     font-weight: 700;
@@ -253,16 +254,16 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 @keyframes popIn { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 .remove-tag { cursor: pointer; opacity: 0.6; font-size: 1.2rem; }
-.remove-tag:hover { opacity: 1; color: red; }
+.remove-tag:hover { opacity: 1; color: #ff0055; }
 
 .compound-result-card {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.2);
     border-left: 4px solid var(--border-color);
     padding: 16px;
     border-radius: 0 8px 8px 0;
@@ -271,8 +272,8 @@ header {
 .compound-result-card h4 { font-size: 1.05rem; margin-bottom: 4px; }
 .compound-result-card p { font-size: 0.9rem; opacity: 0.85; line-height: 1.5; }
 
-.status-success { color: #2ec4b6; font-weight: 700; }
-.status-pending { color: #f1c40f; font-weight: 600; }
+.status-success { color: #00ff88; font-weight: 700; }
+.status-pending { color: #ffaa00; font-weight: 600; }
 
 /* =========================================================
    PERIODIC TABLE CONTAINER GRID SYSTEM STYLE LAYOUTS
@@ -282,10 +283,11 @@ header {
     padding: 20px 20px 80px;
     position: relative;
     z-index: 20;
+    text-align: center;
 }
 
 .container h2 { font-size: 1.8rem; margin-bottom: 8px; }
-.subtitle { font-size: 0.95rem; opacity: 0.7; max-width: 800px; margin: 0 auto 30px; }
+.subtitle { font-size: 0.95rem; opacity: 0.6; max-width: 800px; margin: 0 auto 30px; }
 
 .periodic-table-grid {
     display: grid;
@@ -310,13 +312,13 @@ header {
     cursor: pointer;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s;
 }
-.element-card:hover { transform: scale(1.2) translateY(-4px); z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+.element-card:hover { transform: scale(1.25) translateY(-4px); z-index: 100; box-shadow: 0 12px 25px rgba(0,0,0,0.5); }
 
 .atomic-number { font-size: 0.7rem; align-self: flex-start; opacity: 0.5; }
 .symbol { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
 .name { font-size: 0.6rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 
-/* Chemistry Color Codes assignments */
+/* Unified Element Color Bindings Mapping Layout Codes */
 .group-nonmetal { background: var(--elem-bg-nonmetal); border-color: var(--elem-border-nonmetal); }
 .group-noble { background: var(--elem-bg-noble); border-color: var(--elem-border-noble); }
 .group-alkali { background: var(--elem-bg-alkali); border-color: var(--elem-border-alkali); }
@@ -324,10 +326,10 @@ header {
 .group-transition { background: var(--elem-bg-transition); border-color: var(--elem-border-transition); }
 .group-metalloid { background: var(--elem-bg-metalloid); border-color: var(--elem-border-metalloid); }
 .group-post-transition { background: var(--elem-bg-other); border-color: var(--elem-border-other); }
-.group-halogen { background: rgba(230, 126, 34, 0.2); border-color: #e67e22; }
-.group-lanthanide { background: rgba(0, 210, 255, 0.15); border-color: #00d2ff; }
-.group-actinide { background: rgba(255, 75, 75, 0.15); border-color: #ff4b4b; }
-.group-unknown { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+.group-halogen { background: rgba(255, 170, 0, 0.15); border-color: #ffaa00; }
+.group-lanthanide { background: rgba(0, 240, 255, 0.12); border-color: #00f0ff; }
+.group-actinide { background: rgba(255, 0, 85, 0.12); border-color: #ff0055; }
+.group-unknown { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.15); }
 
 /* =========================================================
    ENHANCED MODAL PROJECTOR DETAILED VIEW LAYOUT
@@ -335,8 +337,8 @@ header {
 .atomic-modal {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     z-index: 3000;
     display: flex; justify-content: center; align-items: center;
     opacity: 0; pointer-events: none;
@@ -350,7 +352,7 @@ header {
     width: 92%; max-width: 820px;
     border-radius: 24px; position: relative;
     padding: 35px;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6);
     transform: scale(0.92) translateY(20px);
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -370,21 +372,20 @@ header {
 .atomic-details { flex: 1; display: flex; flex-direction: column; text-align: left; }
 .atomic-details h3 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
 
-/* Subatomic Counter Elements Row */
 .particle-legend {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 20px;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.25);
     padding: 12px 16px;
     border-radius: 12px;
 }
 .legend-item { font-size: 0.9rem; display: flex; align-items: center; gap: 8px; opacity: 0.9; }
 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-.electron-dot { background: var(--accent-color); box-shadow: 0 0 6px var(--accent-color); }
+.electron-dot { background: #00f0ff; box-shadow: 0 0 6px #00f0ff; }
 .proton-dot { background: #ff4b4b; }
-.neutron-dot { background: #f1c40f; }
+.neutron-dot { background: #ffaa00; }
 
 .data-badge-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
 .data-badge { background: var(--card-surface); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 30px; font-size: 0.8rem; }
@@ -404,30 +405,28 @@ header {
     text-align: center;
     transition: transform 0.2s;
 }
-.workbench-direct-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.workbench-direct-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
 /* =========================================================
-   MOBILE RESPONSIVITY & PHONE VISUAL LAYOUT ENGINE OVERRIDES
+   MOBILE RESPONSIVITY ENGINE OVERRIDES
    ========================================================= */
 @media (max-width: 992px) {
     .periodic-table-grid {
         grid-template-columns: repeat(18, 55px);
-        overflow-x: auto; /* Fallback safe scrolling bounds */
+        overflow-x: auto;
     }
 }
 
-/* Highly Critical Phone Form Factors Overrides Layout */
 @media (max-width: 768px) {
     header { padding: 15px 20px; }
     .logo { font-size: 0.9rem; }
-    .parallax-container { height: 25vh; }
-    .hero-title { font-size: 2rem; }
+    .parallax-container { height: 22vh; }
+    .hero-title { font-size: 1.8rem; }
     
     .sandbox-card { padding: 16px; }
     .sandbox-header h3 { font-size: 1.1rem; }
     .workbench-element-tag { padding: 6px 12px; font-size: 0.95rem; }
     
-    /* Transforming horizontal periodic layout completely into stack hierarchy blocks */
     .periodic-table-grid {
         display: flex;
         flex-direction: column;
@@ -447,31 +446,11 @@ header {
         border-radius: 10px;
     }
     
-    .element-card:hover {
-        transform: scale(1.02);
-    }
+    .element-card:hover { transform: scale(1.02); }
+    .atomic-number { align-self: center; font-size: 0.9rem; font-weight: 700; width: 30px; opacity: 0.8; }
+    .symbol { font-size: 1.4rem; width: 45px; text-align: left; }
+    .name { font-size: 0.9rem; text-align: left; opacity: 0.9; }
     
-    .atomic-number {
-        align-self: center;
-        font-size: 0.9rem;
-        font-weight: 700;
-        width: 30px;
-        opacity: 0.8;
-    }
-    
-    .symbol {
-        font-size: 1.4rem;
-        width: 45px;
-        text-align: left;
-    }
-    
-    .name {
-        font-size: 0.9rem;
-        text-align: left;
-        opacity: 0.9;
-    }
-    
-    /* Modal Phone Structural Realignment adjustments */
     .modal-card { padding: 20px; width: 95%; }
     .modal-body { flex-direction: column; gap: 20px; }
     .atomic-details { text-align: center; align-items: center; }
