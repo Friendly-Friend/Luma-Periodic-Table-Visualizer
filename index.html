@@ -330,7 +330,7 @@
             // Period 6
             {num:55,sym:"Cs",name:"Caesium",group:"alkali",col:1,row:6,shells:[2,8,18,18,8,1],weight:132.91,neutrons:78,valency:1},
             {num:56,sym:"Ba",name:"Barium",group:"alkaline",col:2,row:6,shells:[2,8,18,18,8,2],weight:137.33,neutrons:81,valency:2},
-            {num:72,sym:"Hf",name:"Hafnium",group:"transition",col:4,row:6,shells:[2,8,18,32,10,2],weight:178.49,neutrons:106,valency:4},
+            {num:72,sym:"Hf",name:"Haffium",group:"transition",col:4,row:6,shells:[2,8,18,32,10,2],weight:178.49,neutrons:106,valency:4},
             {num:73,sym:"Ta",name:"Tantalum",group:"transition",col:5,row:6,shells:[2,8,18,32,11,2],weight:180.95,neutrons:108,valency:5},
             {num:74,sym:"W",name:"Tungsten",group:"transition",col:6,row:6,shells:[2,8,18,32,12,2],weight:183.84,neutrons:110,valency:6},
             {num:75,sym:"Re",name:"Rhenium",group:"transition",col:7,row:6,shells:[2,8,18,32,13,2],weight:186.21,neutrons:111,valency:4},
@@ -579,7 +579,8 @@
                 ctx.fillText(`${element.sym}`, cx, cy);
 
                 for (let i = 0; i < shellCount; i++) {
-                    const radius = 58 + (i * 24);
+                    // Optimized shell spacing formula to ensure 7-shell heavy elements stay within the canvas frame bounds
+                    const radius = 50 + (i * 20);
                     const electronCount = element.shells[i];
                     const currentShellColor = getShellColor(i);
 
