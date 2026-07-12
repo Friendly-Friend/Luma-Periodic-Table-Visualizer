@@ -11,16 +11,16 @@
     <header>
         <div class="logo">Luma Element Visualizer</div>
         <div class="theme-controls">
-            <button class="theme-btn" onclick="setTheme('morning', this)" title="Morning">
+            <button class="theme-btn" onclick="setTheme('morning', this)" title="Solar Flare">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
             </button>
-            <button class="theme-btn active" onclick="setTheme('evening', this)" title="Evening">
+            <button class="theme-btn active" onclick="setTheme('evening', this)" title="Quantum Cyberpunk">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0M12 2v4M5.22 10.22l2.83 2.83M18.78 10.22l-2.83 2.83M2 22h20"></path></svg>
             </button>
-            <button class="theme-btn" onclick="setTheme('midnight', this)" title="Midnight">
+            <button class="theme-btn" onclick="setTheme('midnight', this)" title="Midnight Void">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
             </button>
-            <button class="theme-btn" onclick="setTheme('rain', this)" title="Rain">
+            <button class="theme-btn" onclick="setTheme('rain', this)" title="Abyssal Depth">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242M16 14v6M8 14v6M12 16v6"></path></svg>
             </button>
         </div>
@@ -76,9 +76,9 @@
                     <h3 id="modal-element-name">Quantum Node</h3>
                     
                     <div class="particle-legend">
-                        <div class="legend-item"><span class="dot electron-dot"></span> Electrons (<span id="count-e">-</span>)</div>
-                        <div class="legend-item"><span class="dot proton-dot"></span> Protons (<span id="count-p">-</span>)</div>
-                        <div class="legend-item"><span class="dot neutron-dot"></span> Neutrons (<span id="count-n">-</span>)</div>
+                        <div class="legend-item"><span class="dot electron-dot"></span> Orbiting Electrons (<span id="count-e">-</span>)</div>
+                        <div class="legend-item"><span class="dot proton-dot"></span> Core Protons (<span id="count-p">-</span>)</div>
+                        <div class="legend-item"><span class="dot neutron-dot"></span> Core Neutrons (<span id="count-n">-</span>)</div>
                     </div>
 
                     <div class="data-badge-row">
@@ -326,7 +326,6 @@
             if(!currentActiveElement) return;
             addToSandbox(currentActiveElement);
             closeModal();
-            // Smooth view scrolling targeting the sandbox interface card directly
             document.querySelector('.sandbox-section').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -367,11 +366,9 @@
         }
 
         function evaluateCompoundFormula() {
-            // Compute elements composition frequency mapping counts array counts
             const counts = {};
             selectedSandboxElements.forEach(sym => counts[sym] = (counts[sym] || 0) + 1);
 
-            // Sort keys alphabetically so formula keys match string combinations safely
             const formulaKey = Object.keys(counts).sort().map(sym => {
                 return counts[sym] > 1 ? `${sym}${counts[sym]}` : sym;
             }).join('');
@@ -390,7 +387,7 @@
             }
         }
 
-        // 4. Quantum Core Canvas Orbital Engine
+        // 4. Quantum Core Canvas Orbital Engine (Slower Spin + Multi-Color Shell System)
         let animationFrameId = null;
         const canvas = document.getElementById('atom-canvas');
         const ctx = canvas.getContext('2d');
@@ -402,7 +399,6 @@
             document.getElementById('modal-weight').innerText = element.weight;
             document.getElementById('modal-shells').innerText = element.shells.join(' - ');
             
-            // Enhanced subatomic metrics assignments updates
             document.getElementById('count-e').innerText = element.num;
             document.getElementById('count-p').innerText = element.num;
             document.getElementById('count-n').innerText = element.neutrons;
@@ -414,7 +410,13 @@
             
             let angle = 0;
             const shellCount = element.shells.length;
-            const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim() || '#f39c12';
+            const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim() || '#00f0ff';
+
+            // Generate a palette array dynamically for the current configuration to map cleanly
+            const getShellColor = (index) => {
+                // Programmatically shifts hue across 360 degrees to make distinct shells look incredibly crisp
+                return `hsl(${(index * (360 / Math.max(shellCount, 4))) + 190}, 100%, 60%)`;
+            };
 
             function drawAtom() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -423,52 +425,56 @@
 
                 // Draw Core Nucleus Layer System glow
                 ctx.beginPath();
-                ctx.arc(cx, cy, 22, 0, Math.PI * 2);
-                ctx.fillStyle = accentColor;
-                ctx.shadowBlur = 18;
-                ctx.shadowColor = accentColor;
+                ctx.arc(cx, cy, 24, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 75, 75, 0.2)';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff4b4b'; // Solid nuclear proton field center core
+                ctx.shadowBlur = 14;
+                ctx.shadowColor = '#ff4b4b';
                 ctx.fill();
                 ctx.shadowBlur = 0; 
 
-                // Draw alternate overlapping Protons/Neutrons graphics visual inside nucleus core ring
-                ctx.fillStyle = 'rgba(255,255,255,0.2)';
-                ctx.beginPath();
-                ctx.arc(cx - 4, cy - 3, 6, 0, Math.PI*2);
-                ctx.fill();
-
-                ctx.fillStyle = document.documentElement.getAttribute('data-theme') === 'morning' ? '#1c2d37' : '#ffffff';
-                ctx.font = 'bold 11px Segoe UI';
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 12px Segoe UI';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(`${element.sym}`, cx, cy);
 
                 // Draw Electron Shell Tracks and Particles
                 for (let i = 0; i < shellCount; i++) {
-                    const radius = 55 + (i * 24);
+                    const radius = 58 + (i * 24);
                     const electronCount = element.shells[i];
+                    const currentShellColor = getShellColor(i);
 
                     ctx.beginPath();
                     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-                    ctx.strokeStyle = document.documentElement.getAttribute('data-theme') === 'morning' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)';
-                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+                    ctx.lineWidth = 1.2;
                     ctx.stroke();
 
                     for (let j = 0; j < electronCount; j++) {
                         const direction = i % 2 === 0 ? 1 : -1;
-                        const localAngle = (angle * direction * (1.5 / (i + 1))) + (j * (Math.PI * 2 / electronCount));
+                        // Slower tracking speed loop adjustments (.004 velocity scalar creates elegant stability)
+                        const localAngle = (angle * direction * (0.6 / (i + 1))) + (j * (Math.PI * 2 / electronCount));
                         
                         const ex = cx + Math.cos(localAngle) * radius;
                         const ey = cy + Math.sin(localAngle) * radius;
 
-                        // Electron sphere glowing nodes
+                        // Electron sphere glowing node utilizing its individual layer assignment color mapping
                         ctx.beginPath();
-                        ctx.arc(ex, ey, 5.5, 0, Math.PI * 2);
-                        ctx.fillStyle = accentColor;
+                        ctx.arc(ex, ey, 6, 0, Math.PI * 2);
+                        ctx.fillStyle = currentShellColor;
+                        ctx.shadowBlur = 8;
+                        ctx.shadowColor = currentShellColor;
                         ctx.fill();
+                        ctx.shadowBlur = 0;
                     }
                 }
 
-                angle += 0.012;
+                angle += 0.007; // Smooth, slow orbital speed deceleration setting
                 animationFrameId = requestAnimationFrame(drawAtom);
             }
             drawAtom();
@@ -485,7 +491,6 @@
 
         document.getElementById('modal-add-workbench-btn').addEventListener('click', injectActiveIntoSandbox);
 
-        // Run Periodic Matrix Initialization
         renderPeriodicTable();
     </script>
 </body>
