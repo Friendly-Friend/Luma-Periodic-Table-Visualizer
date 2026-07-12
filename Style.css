@@ -10,6 +10,7 @@
     --mountain-front: #1f122b;
     --text-color: #ffffff;
     --accent-color: #f39c12;
+    --modal-bg: rgba(31, 18, 43, 0.95);
 
     /* Responsive Chemistry Category Base Theme Palettes */
     --elem-bg-nonmetal: rgba(230, 126, 34, 0.25);
@@ -36,6 +37,7 @@
     --mountain-front: #233d4d;
     --accent-color: #3d5a6c;
     --text-color: #1c2d37;
+    --modal-bg: rgba(243, 246, 248, 0.98);
 
     --elem-bg-nonmetal: rgba(74, 124, 89, 0.2);
     --elem-border-nonmetal: rgba(74, 124, 89, 0.7);
@@ -49,6 +51,8 @@
     --elem-border-transition: rgba(79, 109, 122, 0.7);
     --elem-bg-metalloid: rgba(140, 171, 161, 0.3);
     --elem-border-metalloid: rgba(140, 171, 161, 0.8);
+    --elem-bg-other: rgba(180, 190, 195, 0.3);
+    --elem-border-other: rgba(130, 145, 155, 0.7);
 }
 
 [data-theme="midnight"] {
@@ -59,6 +63,7 @@
     --mountain-front: #050507;  
     --accent-color: #a988ff;
     --text-color: #ffffff;
+    --modal-bg: rgba(15, 16, 26, 0.96);
 
     --elem-bg-nonmetal: rgba(69, 39, 122, 0.3);
     --elem-border-nonmetal: rgba(141, 95, 230, 0.6);
@@ -72,6 +77,8 @@
     --elem-border-transition: rgba(30, 144, 255, 0.6);
     --elem-bg-metalloid: rgba(33, 140, 116, 0.25);
     --elem-border-metalloid: rgba(74, 222, 128, 0.6);
+    --elem-bg-other: rgba(50, 50, 65, 0.3);
+    --elem-border-other: rgba(100, 100, 125, 0.6);
 }
 
 [data-theme="rain"] {
@@ -82,6 +89,7 @@
     --mountain-front: #17202a;
     --accent-color: #aeb6bf;
     --text-color: #eceff1;
+    --modal-bg: rgba(23, 32, 42, 0.96);
 
     --elem-bg-nonmetal: rgba(93, 109, 126, 0.3);
     --elem-border-nonmetal: rgba(171, 178, 185, 0.6);
@@ -95,6 +103,8 @@
     --elem-border-transition: rgba(90, 107, 124, 0.7);
     --elem-bg-metalloid: rgba(75, 95, 90, 0.3);
     --elem-border-metalloid: rgba(120, 150, 140, 0.6);
+    --elem-bg-other: rgba(60, 70, 80, 0.3);
+    --elem-border-other: rgba(110, 120, 130, 0.6);
 }
 
 * {
@@ -182,7 +192,7 @@ header {
 .parallax-container {
     position: relative;
     width: 100%;
-    height: 75vh;
+    height: 60vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -191,7 +201,6 @@ header {
     transition: background 0.8s ease;
 }
 
-/* --- OPTIMIZED MOON CLASS --- */
 .moon {
     position: absolute;
     top: 90px;       
@@ -218,7 +227,6 @@ header {
     transform: scale(0.4) translate3d(0, 30px, 0) !important;
 }
 
-/* --- STARLIGHT FABRIC --- */
 .twinkling-stars {
     position: absolute;
     top: 0;
@@ -245,7 +253,6 @@ header {
     100% { opacity: 1; transform: scale(1.1); }
 }
 
-/* --- PARALLAX HIERARCHY --- */
 .parallax-layer {
     position: absolute;
     bottom: -2px;
@@ -301,7 +308,6 @@ header {
 [data-theme="morning"] #layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%23233d4d" d="M0,520 L180,380 L450,540 L800,320 L1150,510 L1440,360 L1440,600 L0,600 Z"></path></svg>'); }
 [data-theme="rain"] #layer-mountain-front { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="none"><path fill="%2317202a" d="M0,520 L180,380 L450,540 L800,320 L1150,510 L1440,360 L1440,600 L0,600 Z"></path></svg>'); }
 
-/* --- WEATHER ELEMENTS --- */
 .rain-container {
     position: absolute;
     top: 0;
@@ -328,7 +334,6 @@ header {
     100% { transform: translate3d(-150px, 105vh, 0) rotate(15deg); }
 }
 
-/* --- RARE SHOOTING STARS ENGINE --- */
 .shooting-stars {
     position: absolute;
     top: 0;
@@ -375,10 +380,10 @@ header {
 .shooting-stars span:nth-child(4) { top: 15%; right: 60%; animation-delay: 8.2s; }
 .shooting-stars span:nth-child(5) { top: 28%; right: 45%; animation-delay: 6.0s; }
 
-/* --- OPTIMIZED PERIODIC VISUALIZER LAYOUT --- */
+/* --- APP MAIN SECTIONS --- */
 .app-content-section {
     background-color: var(--mountain-front);
-    padding: 80px 40px;
+    padding: 60px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -388,14 +393,14 @@ header {
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1500px;
     width: 100%;
     text-align: center;
 }
 
 .container h2 {
     font-size: 2.2rem;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: var(--accent-color);
     transition: color 0.8s ease;
 }
@@ -405,16 +410,16 @@ header {
     line-height: 1.7;
     color: var(--text-color);
     opacity: 0.75;
-    margin-bottom: 45px;
+    margin-bottom: 35px;
     transition: color 0.8s ease;
 }
 
-/* --- THE HARDWARE GRID CORE --- */
+/* --- IUPAC SYSTEM GRID HIERARCHY --- */
 .periodic-table-grid {
     display: grid;
-    grid-template-columns: repeat(18, minmax(50px, 1fr));
-    grid-gap: 6px;
-    padding: 25px;
+    grid-template-columns: repeat(18, minmax(65px, 1fr));
+    grid-gap: 5px;
+    padding: 20px;
     border-radius: 14px;
     background: var(--bg-tint);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -424,41 +429,43 @@ header {
 [data-theme="morning"] .periodic-table-grid { border-color: rgba(0, 0, 0, 0.08); }
 
 .element-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 6px;
-    padding: 8px 4px;
+    padding: 6px 3px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     aspect-ratio: 1 / 1.15;
     position: relative;
-    cursor: crosshair;
+    cursor: pointer;
+    will-change: transform;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.8s ease, border-color 0.8s ease;
 }
+[data-theme="morning"] .element-card { border-color: rgba(0, 0, 0, 0.12); }
 
 .element-card:hover {
-    transform: scale(1.08);
+    transform: scale(1.15);
     z-index: 50;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
+[data-theme="morning"] .element-card:hover { box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15); }
 
 .atomic-number {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     align-self: flex-start;
-    padding-left: 4px;
+    padding-left: 2px;
     opacity: 0.6;
 }
 
 .symbol {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    letter-spacing: -0.5px;
 }
 
 .name {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     opacity: 0.7;
     white-space: nowrap;
     overflow: hidden;
@@ -466,8 +473,8 @@ header {
     width: 100%;
 }
 
-/* --- ELEMENT FAMILY COLOR MAPPINGS --- */
-.group-nonmetal { background-color: var(--elem-bg-nonmetal); border-color: var(--elem-border-nonmetal); }
+/* --- CHEMISTRY CLASSIFICATION STYLING --- */
+.group-nonmetal { var(--item): var(--elem-bg-nonmetal); background-color: var(--elem-bg-nonmetal); border-color: var(--elem-border-nonmetal); }
 .group-noble { background-color: var(--elem-bg-noble); border-color: var(--elem-border-noble); }
 .group-alkali { background-color: var(--elem-bg-alkali); border-color: var(--elem-border-alkali); }
 .group-alkaline { background-color: var(--elem-bg-alkaline); border-color: var(--elem-border-alkaline); }
@@ -475,33 +482,154 @@ header {
 .group-metalloid { background-color: var(--elem-bg-metalloid); border-color: var(--elem-border-metalloid); }
 .group-post-transition { background-color: var(--elem-bg-other); border-color: var(--elem-border-other); }
 .group-halogen { background-color: var(--elem-bg-nonmetal); border-color: var(--elem-border-nonmetal); }
-.group-actinide { background-color: var(--elem-bg-other); border-color: var(--elem-border-other); }
+.group-lanthanide { background-color: rgba(0, 168, 204, 0.2); border-color: rgba(0, 168, 204, 0.5); }
+.group-actinide { background-color: rgba(214, 48, 48, 0.2); border-color: rgba(214, 48, 48, 0.5); }
+.group-unknown { background-color: rgba(127, 140, 141, 0.15); border-color: rgba(127, 140, 141, 0.4); }
 
-/* --- RESPONSIVE OVERRIDES --- */
+/* --- DYNAMIC QUANTUM OVERLAY MODAL --- */
+.atomic-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atomic-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background-color: var(--modal-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 750px;
+    border-radius: 16px;
+    position: relative;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    transform: scale(0.9) translate3d(0, 30px, 0);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.8s ease;
+}
+[data-theme="morning"] .modal-card {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.atomic-modal.active .modal-card {
+    transform: scale(1) translate3d(0, 0, 0);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+.close-modal-btn:hover { opacity: 1; }
+
+.modal-body {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.atomic-canvas-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#atom-canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.atomic-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.atomic-details h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.data-badge-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.data-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+[data-theme="morning"] .data-badge {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.shell-config h4 {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.shell-config p {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+}
+
+/* --- RESPONSIVE STRUCTURAL OVERRIDES --- */
 @media (max-width: 1024px) {
     .periodic-table-grid {
-        grid-template-columns: repeat(18, 55px); /* Maintain geometric layout integrity via horizontal overflow swipe */
+        grid-template-columns: repeat(18, 68px); /* Locks sizing for predictable overflow sliding controls */
     }
 }
 
 @media (max-width: 768px) {
+    .modal-body { flex-direction: column; gap: 15px; }
+    .atomic-details { text-align: center; align-items: center; }
+    .data-badge-row { justify-content: center; }
+    
     header { padding: 20px; }
     .logo { font-size: 1rem; }
     .theme-btn { width: 38px; height: 38px; }
-    .parallax-container { height: 45vh; }
+    .parallax-container { height: 35vh; }
     
     .hero-title {
         font-size: 2.2rem;
         transform: translate3d(0, -20px, 0);
     }
-
-    .moon {
-        top: 70px;
-        right: 22%;
-        width: 38px;
-        height: 38px;
-    }
-    
-    .app-content-section { padding: 40px 15px; }
-    .container h2 { font-size: 1.6rem; }
 }
