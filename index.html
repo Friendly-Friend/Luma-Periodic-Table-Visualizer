@@ -538,7 +538,7 @@
             }
         }
 
-        // Quantum Bohr Projector Visualizer Engine
+        // Quantum Bohr Projector Visualizer Engine (Adaptive Shell Scaling Update)
         let animationFrameId = null;
         const canvas = document.getElementById('atom-canvas');
         const ctx = canvas.getContext('2d');
@@ -567,6 +567,7 @@
                 const cx = canvas.width / 2;
                 const cy = canvas.height / 2;
 
+                // Core Nucleus
                 ctx.beginPath();
                 ctx.arc(cx, cy, 18, 0, Math.PI * 2);
                 ctx.fillStyle = '#ff4b4b'; 
@@ -578,23 +579,32 @@
                 ctx.textBaseline = 'middle';
                 ctx.fillText(`${element.sym}`, cx, cy);
 
+                // Safe viewport constraints to eliminate edge clipping
+                const maxAllowedRadius = 145; 
+                const minStartingRadius = 45;
+
                 for (let i = 0; i < shellCount; i++) {
-                    // Optimized shell spacing formula to ensure 7-shell heavy elements stay within the canvas frame bounds
-                    const radius = 50 + (i * 20);
+                    // Dynamically map radii intervals depending on the active node's absolute shell count
+                    const radius = shellCount > 1 
+                        ? minStartingRadius + (i * (maxAllowedRadius - minStartingRadius) / (shellCount - 1))
+                        : minStartingRadius;
+
                     const electronCount = element.shells[i];
                     const currentShellColor = getShellColor(i);
 
+                    // Render Orbital Rings
                     ctx.beginPath();
                     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
                     ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
                     ctx.stroke();
 
+                    // Render Sub-shell Electrons
                     for (let j = 0; j < electronCount; j++) {
                         const direction = i % 2 === 0 ? 1 : -1;
                         const localAngle = (angle * direction * (0.6 / (i + 1))) + (j * (Math.PI * 2 / electronCount));
                         
                         ctx.beginPath();
-                        ctx.arc(cx + Math.cos(localAngle) * radius, cy + Math.sin(localAngle) * radius, 6, 0, Math.PI * 2);
+                        ctx.arc(cx + Math.cos(localAngle) * radius, cy + Math.sin(localAngle) * radius, 5, 0, Math.PI * 2);
                         ctx.fillStyle = currentShellColor;
                         ctx.fill();
                     }
