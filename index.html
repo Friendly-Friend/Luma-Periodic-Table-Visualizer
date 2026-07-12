@@ -11,6 +11,21 @@
             opacity: 0 !important;
             visibility: hidden !important;
         }
+        
+        /* Fixed Single-Element Moon: Uses a crisp box-shadow crescent so backgrounds seamlessly bleed through */
+        .moon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 20px 20px 0 0 #fff8e7;
+            position: absolute;
+            top: 15%;
+            left: 70%;
+            z-index: 2;
+            filter: drop-shadow(0 0 15px rgba(255, 248, 231, 0.4));
+        }
+
         .status-success { color: #00ff88; font-weight: bold; }
         .status-pending { color: #ffaa00; font-weight: bold; }
         .status-error { color: #ff4b4b; font-weight: bold; }
@@ -56,7 +71,7 @@
                 <h3>🧪 Dynamic Molecular Workbench</h3>
                 <button class="clear-btn" onclick="clearSandbox()">Reset Deck</button>
             </div>
-            <p class="sandbox-desc">Inject multiple elements into the core. The workbench will analyze their electron configurations to calculate dynamic bond stability structural profiles!</p>
+            <p class="sandbox-desc">Inject multiple elements into the core. The workbench will dynamically look up matching structures or calculate structural shell balances!</p>
             <div class="sandbox-deck" id="sandbox-deck">
                 <span class="empty-prompt">Reactor Core Offline. Add elements from the grid below to start synthesized binding...</span>
             </div>
@@ -84,18 +99,15 @@
                 </div>
                 <div class="atomic-details">
                     <h3 id="modal-element-name">Quantum Node</h3>
-                    
                     <div class="particle-legend">
                         <div class="legend-item"><span class="dot electron-dot"></span> Orbiting Electrons (<span id="count-e">-</span>)</div>
                         <div class="legend-item"><span class="dot proton-dot"></span> Core Protons (<span id="count-p">-</span>)</div>
                         <div class="legend-item"><span class="dot neutron-dot"></span> Core Neutrons (<span id="count-n">-</span>)</div>
                     </div>
-
                     <div class="data-badge-row">
                         <span class="data-badge">Atomic Weight: <strong id="modal-weight">-</strong></span>
                         <span class="data-badge">Category: <strong id="modal-group">-</strong></span>
                     </div>
-                    
                     <div class="shell-config">
                         <h4>Bohr Electron Shell Mapping:</h4>
                         <p id="modal-shells">-</p>
@@ -107,7 +119,7 @@
     </div>
 
     <script>
-        // 1. Weather and Sky FX Engine Generators
+        // Weather Engine
         const rainBox = document.getElementById('rain-box');
         const dropCount = 45; 
         const rainFragment = document.createDocumentFragment();
@@ -142,7 +154,7 @@
         }
         generateStars();
 
-        // Parallax Camera Loop
+        // Parallax Configuration
         const backLayer = document.getElementById('layer-mountain-back');
         const midLayer = document.getElementById('layer-mountain-mid');
         const frontLayer = document.getElementById('layer-mountain-front');
@@ -158,6 +170,7 @@
                     midLayer.style.transform = `translate3d(0, ${scrollPos * 0.22}px, 0)`;
                     frontLayer.style.transform = `translate3d(0, ${scrollPos * 0.04}px, 0)`;
                     mainTitle.style.transform = `translate3d(0, ${-50 + (scrollPos * 0.3)}px, 0)`;
+                    // Offset adjustment to keep shadow aesthetic correct
                     moonElement.style.transform = `translate3d(0, ${scrollPos * 0.5}px, 0)`;
                     ticking = false;
                 });
@@ -178,7 +191,7 @@
             }
         }
 
-        // 2. Element Database Mapping (Including Valency Property Calculations)
+        // Elements Matrix Map Definitions
         const elementMap = [
             {num:1,sym:"H",name:"Hydrogen",group:"nonmetal",col:1,row:1,shells:[1],weight:1.008,neutrons:0,valency:1},
             {num:2,sym:"He",name:"Helium",group:"noble",col:18,row:1,shells:[2],weight:4.0026,neutrons:2,valency:0},
@@ -199,20 +212,20 @@
             {num:17,sym:"Cl",name:"Chlorine",group:"halogen",col:17,row:3,shells:[2,8,7],weight:35.45,neutrons:18,valency:-1},
             {num:18,sym:"Ar",name:"Argon",group:"noble",col:18,row:3,shells:[2,8,8],weight:39.948,neutrons:22,valency:0},
             {num:19,sym:"K",name:"Potassium",group:"alkali",col:1,row:4,shells:[2,8,8,1],weight:39.098,neutrons:20,valency:1},
-            {num:20,sym:"Ca",name:"Calcium",group:"alkaline",col:2,row:4,shells:[2,8,8,2],weight:40.078,neutrons:20,valency:2},
-            {num:26,sym:"Fe",name:"Iron",group:"transition",col:8,row:4,shells:[2,8,14,2],weight:55.845,neutrons:30,valency:3},
-            {num:29,sym:"Cu",name:"Copper",group:"transition",col:11,row:4,shells:[2,8,18,1],weight:63.546,neutrons:35,valency:2},
-            {num:30,sym:"Zn",name:"Zinc",group:"transition",col:12,row:4,shells:[2,8,18,2],weight:65.38,neutrons:35,valency:2}
+            {num:20,sym:"Ca",name:"Calcium",group:"alkaline",col:2,row:4,shells:[2,8,8,2],weight:40.078,neutrons:20,valency:2}
         ];
 
-        // Explicit textbook formula database matches
+        // Multi-Indexed formula lookup system to match variants like "NaCl" vs "ClNa" effortlessly
         const formulaRegistry = {
-            "H2O": { name: "Water", desc: "Essential for all known forms of life. Acts as an excellent universal polar solvent." },
-            "CO2": { name: "Carbon Dioxide", desc: "Vital greenhouse gas utilized perfectly by plants during photosynthesis reactions." },
-            "NaCl": { name: "Sodium Chloride (Table Salt)", desc: "Classic ionic structure matrix compound defining standard salinity scales." },
-            "CH4": { name: "Methane", desc: "Simplest alkane hydrocarbon component powering natural gas networks." },
-            "O2": { name: "Oxygen Gas", desc: "Diatomic molecular configuration structural compound fueling metabolic respiration." },
-            "H2": { name: "Hydrogen Gas", desc: "Highly flammable diatomic clean elemental fuel matrix." }
+            "H2O": { name: "Water", desc: "Essential for all known forms of life. Acts as a universal polar solvent." },
+            "CO2": { name: "Carbon Dioxide", desc: "Greenhouse gas vital for organic plant photosynthesis cycles." },
+            "ClNa": { name: "Sodium Chloride (Table Salt)", desc: "Classic ionic matrix structure defining common salt compound architecture." },
+            "NaCl": { name: "Sodium Chloride (Table Salt)", desc: "Classic ionic matrix structure defining common salt compound architecture." },
+            "CH4": { name: "Methane", desc: "Simple stable hydrocarbon component heavily powering natural gas clean fuels." },
+            "O2": { name: "Oxygen Gas", desc: "Diatomic molecular configuration fueling metabolic cellular respiration structures." },
+            "H2": { name: "Hydrogen Gas", desc: "Highly volatile clean burning elemental aerospace core fuel element." },
+            "ClH": { name: "Hydrochloric Acid", desc: "Highly corrosive mineral strong acid vital for stomach digestion loops." },
+            "HCl": { name: "Hydrochloric Acid", desc: "Highly corrosive mineral strong acid vital for stomach digestion loops." }
         };
 
         let currentActiveElement = null;
@@ -234,11 +247,9 @@
                     <span class="symbol">${elem.sym}</span>
                     <span class="name">${elem.name}</span>
                 `;
-
                 elementCard.addEventListener('click', () => openAtomicVisualizer(elem));
                 fragment.appendChild(elementCard);
             });
-
             tableContainer.appendChild(fragment);
         }
 
@@ -254,10 +265,11 @@
             updateSandboxUI();
         }
 
-        function removeSandboxItem(index) {
+        // Fixed remove tag syntax handler index targeting
+        window.removeSandboxItem = function(index) {
             selectedSandboxElements.splice(index, 1);
             updateSandboxUI();
-        }
+        };
 
         function clearSandbox() {
             selectedSandboxElements = [];
@@ -285,7 +297,7 @@
             evaluateCompoundFormula();
         }
 
-        // 3. Smart Valency Engine: Evaluates arbitrary element counts dynamically
+        // Intelligent Chemistry Core Evaluator Engine
         function evaluateCompoundFormula() {
             const counts = {};
             let totalValency = 0;
@@ -297,48 +309,59 @@
                 if(elem.group === 'noble') containsNoble = true;
             });
 
-            // Format standard chemical text formula key string (e.g., H2O)
+            // Standard alpha-key string signature generator
             const formulaKey = Object.keys(counts).sort().map(sym => {
                 return counts[sym] > 1 ? `${sym}${counts[sym]}` : sym;
             }).join('');
 
+            // Alternative standard Hill sorting system rule signature backup (C first, then H, then rest)
+            const sortedKeysHill = Object.keys(counts).sort((a, b) => {
+                if (a === 'C' && b !== 'C') return -1;
+                if (b === 'C' && a !== 'C') return 1;
+                if (a === 'H' && b !== 'H') return -1;
+                if (b === 'H' && a !== 'H') return 1;
+                return a.localeCompare(b);
+            });
+            const hillFormulaKey = sortedKeysHill.map(sym => counts[sym] > 1 ? `${sym}${counts[sym]}` : sym).join('');
+
             const statusNode = document.getElementById('reaction-status');
             const detailsNode = document.getElementById('compound-details');
 
-            // Strategy Step A: Check for textbook registry definitions
-            if (formulaRegistry[formulaKey]) {
-                statusNode.innerText = `Synthesized Matrix Found: ${formulaRegistry[formulaKey].name} (${formulaKey})`;
+            // Strategy Check A: Cross check lookups across multiple order variants
+            const match = formulaRegistry[formulaKey] || formulaRegistry[hillFormulaKey];
+            if (match) {
+                statusNode.innerText = `Synthesized Matrix Found: ${match.name} (${hillFormulaKey})`;
                 statusNode.className = "status-success";
-                detailsNode.innerText = formulaRegistry[formulaKey].desc;
+                detailsNode.innerText = match.desc;
                 return;
             }
 
-            // Strategy Step B: Handle solo pure element states
+            // Strategy Check B: Handle single group isolation phase matches
             if (Object.keys(counts).length === 1) {
                 const element = selectedSandboxElements[0];
                 statusNode.className = "status-success";
                 statusNode.innerText = `Pure Elemental Phase (${formulaKey})`;
-                detailsNode.innerText = `You have aggregated pure ${element.name}. It forms a stable structural metallic matrix or pure element layout structure.`;
+                detailsNode.innerText = `You have aggregated pure elements of ${element.name}. It creates a completely stable structural lattice setup.`;
                 return;
             }
 
-            // Strategy Step C: Dynamic Valency Calculation Check
+            // Strategy Check C: Dynamic electron cell balancing engine checks
             if (totalValency === 0 && !containsNoble) {
-                statusNode.innerText = `Valid Chemical Compound Matrix (${formulaKey})`;
+                statusNode.innerText = `Valid Custom Compound Matrix (${hillFormulaKey})`;
                 statusNode.className = "status-success";
-                detailsNode.innerText = `The electron valencies match! The net charges are perfectly balanced to zero, creating a stable chemical compound structure.`;
+                detailsNode.innerText = `The net electron valencies equal 0. The elements balance out perfectly to build a dynamically stable compound!`;
             } else if (containsNoble) {
-                statusNode.innerText = `Inert Repulsion Collision (${formulaKey})`;
+                statusNode.innerText = `Inert Gas Repulsion (${hillFormulaKey})`;
                 statusNode.className = "status-error";
-                detailsNode.innerText = "Noble gases possess filled outer electron shells and refuse to share electrons or bind within this reactive sandbox.";
+                detailsNode.innerText = "Noble gas items feature closed shell layouts and refuse electron binding updates inside the reactor.";
             } else {
-                statusNode.innerText = `Unstable Synthetic Radical (${formulaKey})`;
+                statusNode.innerText = `Unstable Synthetic Radical (${hillFormulaKey})`;
                 statusNode.className = "status-pending";
-                detailsNode.innerText = `Net Valency Charge: ${totalValency > 0 ? '+' : ''}${totalValency}. The electron shells do not balance cleanly. This creates an unbonded, highly reactive radical molecular cluster.`;
+                detailsNode.innerText = `Net Valency Balance Error: ${totalValency > 0 ? '+' : ''}${totalValency}. Outer orbits do not clear out safely, leaving an unbonded, highly reactive mixture.`;
             }
         }
 
-        // 4. Quantum Canvas Engine
+        // Quantum Bohr Projector Visualizer Engine
         let animationFrameId = null;
         const canvas = document.getElementById('atom-canvas');
         const ctx = canvas.getContext('2d');
