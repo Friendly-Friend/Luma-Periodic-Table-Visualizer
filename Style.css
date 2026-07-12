@@ -3,32 +3,33 @@
    ========================================================= */
 
 :root {
-    --sky-gradient: linear-gradient(to bottom, #141e30, #243b55, #2c3e50);
-    --bg-tint: rgba(36, 59, 85, 0.15);
-    --mountain-back: #2c3e50;
-    --mountain-mid: #1f2d3d;
-    --mountain-front: #0f171e;
-    --text-color: #ffffff;
-    --accent-color: #00d2ff;
-    --modal-bg: rgba(15, 23, 30, 0.98);
-    --card-surface: rgba(255, 255, 255, 0.03);
-    --border-color: rgba(255, 255, 255, 0.08);
+    /* Base Core Environment Layering */
+    --sky-gradient: linear-gradient(135deg, #090a15 0%, #111326 50%, #1a1c38 100%);
+    --bg-tint: rgba(26, 28, 56, 0.25);
+    --mountain-back: #181a30;
+    --mountain-mid: #101222;
+    --mountain-front: #06070d; /* Core structural canvas background */
+    --text-color: #f1f3f9;
+    --accent-color: #00f0ff; /* Electric Cyan */
+    --modal-bg: rgba(6, 7, 13, 0.98);
+    --card-surface: rgba(255, 255, 255, 0.04);
+    --border-color: rgba(255, 255, 255, 0.09);
 
-    /* Category Specific Color Tokens */
-    --elem-bg-nonmetal: rgba(46, 204, 113, 0.2);
-    --elem-border-nonmetal: rgba(46, 204, 113, 0.6);
-    --elem-bg-noble: rgba(155, 89, 182, 0.25);
-    --elem-border-noble: rgba(155, 89, 182, 0.6);
-    --elem-bg-alkali: rgba(231, 76, 60, 0.25);
-    --elem-border-alkali: rgba(231, 76, 60, 0.6);
-    --elem-bg-alkaline: rgba(241, 196, 15, 0.25);
-    --elem-border-alkaline: rgba(241, 196, 15, 0.6);
-    --elem-bg-transition: rgba(52, 152, 219, 0.2);
-    --elem-border-transition: rgba(52, 152, 219, 0.6);
-    --elem-bg-metalloid: rgba(230, 126, 34, 0.2);
-    --elem-border-metalloid: rgba(230, 126, 34, 0.6);
-    --elem-bg-other: rgba(149, 165, 166, 0.2);
-    --elem-border-other: rgba(149, 165, 166, 0.6);
+    /* Scientific Element Categorization Tokens */
+    --elem-bg-nonmetal: rgba(0, 255, 136, 0.12);       /* Radiant Matrix Green */
+    --elem-border-nonmetal: #00ff88;
+    --elem-bg-noble: rgba(188, 19, 254, 0.15);         /* Plasma Violet */
+    --elem-border-noble: #bc13fe;
+    --elem-bg-alkali: rgba(255, 0, 85, 0.15);          /* Reactive Coral Red */
+    --elem-border-alkali: #ff0055;
+    --elem-bg-alkaline: rgba(255, 170, 0, 0.15);       /* Kinetic Orange */
+    --elem-border-alkaline: #ffaa00;
+    --elem-bg-transition: rgba(0, 180, 255, 0.12);     /* Cobalt Blue */
+    --elem-border-transition: #00b4ff;
+    --elem-bg-metalloid: rgba(255, 234, 0, 0.12);      /* Laser Yellow */
+    --elem-border-metalloid: #ffea00;
+    --elem-bg-other: rgba(0, 221, 255, 0.12);          /* Turquoise Ice */
+    --elem-border-other: #00ddff;
 }
 
 [data-theme="morning"] {
