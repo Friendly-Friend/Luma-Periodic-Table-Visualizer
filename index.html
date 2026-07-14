@@ -126,14 +126,14 @@
             margin-right: 4px;
         }
 
-        /* NEW CUSTOM BATCH STYLES */
+        /* QUANTITY SELECTOR STYLING */
         .quantity-selector-container {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-top: 22px;
+            margin-top: 15px;
             background: rgba(255, 255, 255, 0.04);
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -191,14 +191,34 @@
             outline: none;
         }
 
-        /* Clear standard browser spinner UI arrows */
         .qty-input::-webkit-outer-spin-button,
         .qty-input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
-        /* NEW CUSTOM INFO BOXES */
+        /* MODAL FIX & NEW INFO CONTAINER STYLES */
+        .atomic-details {
+            display: flex;
+            flex-direction: column;
+            max-height: 480px; /* Keep modal compact */
+            overflow-y: auto;  /* Enable scrolling if content overflows */
+            padding-right: 8px;
+        }
+
+        /* Scrollbar customization for sleek UI */
+        .atomic-details::-webkit-scrollbar {
+            width: 6px;
+        }
+        .atomic-details::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        .atomic-details::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
         .info-header {
             font-family: 'Segoe UI', system-ui, sans-serif;
             font-size: 0.8rem;
@@ -223,7 +243,8 @@
             border-left: 3px solid #00ff88;
             padding: 10px 14px;
             border-radius: 6px;
-            margin-top: 12px;
+            margin-top: 8px;
+            margin-bottom: 8px;
         }
 
         .fact-text {
@@ -295,6 +316,7 @@
         </div>
     </section>
 
+    <!-- ATOMIC MODAL (FIXED TO RENDER THE DESCRIPTION AND CURIOSTY SECTIONS PROPERLY) -->
     <div class="atomic-modal" id="atomic-modal">
         <div class="modal-card">
             <button class="close-modal-btn" onclick="closeModal()">&times;</button>
@@ -304,28 +326,34 @@
                 </div>
                 <div class="atomic-details">
                     <h3 id="modal-element-name">Quantum Node</h3>
+                    
                     <div class="particle-legend">
                         <div class="legend-item"><span class="dot electron-dot"></span> Orbiting Electrons (<span id="count-e">-</span>)</div>
                         <div class="legend-item"><span class="dot proton-dot"></span> Core Protons (<span id="count-p">-</span>)</div>
                         <div class="legend-item"><span class="dot neutron-dot"></span> Core Neutrons (<span id="count-n">-</span>)</div>
                     </div>
+                    
                     <div class="data-badge-row">
                         <span class="data-badge">Atomic Weight: <strong id="modal-weight">-</strong></span>
                         <span class="data-badge">Category: <strong id="modal-group">-</strong></span>
                     </div>
+                    
                     <div class="shell-config">
                         <h4>Bohr Electron Shell Mapping:</h4>
                         <p id="modal-shells">-</p>
                     </div>
 
+                    <!-- ELEMENT PROFILE BLOCK -->
                     <div class="info-header">Description</div>
                     <p class="info-p" id="modal-description">-</p>
 
+                    <!-- SCIENTIFIC CURIOSITY BLOCK -->
                     <div class="fact-container">
                         <div class="info-header" style="color: #00ff88; margin-top: 0; margin-bottom: 2px;">💡 Scientific Curiosity</div>
                         <p class="fact-text" id="modal-fact">-</p>
                     </div>
 
+                    <!-- QUANTITY BATCH INJECTOR -->
                     <div class="quantity-selector-container">
                         <span class="quantity-label">Batch Quantity:</span>
                         <div class="quantity-controls">
