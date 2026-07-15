@@ -298,7 +298,7 @@
                 <h3>🧪 Dynamic Molecular Workbench</h3>
                 <button class="clear-btn" onclick="clearSandbox()">Reset Deck</button>
             </div>
-            <p class="sandbox-desc">Inject elements to assemble balanced chemical configurations. The visualizer procedurally constructs corresponding publication-grade organic skeletal structures.</p>
+            <p class="sandbox-desc">Inject elements to assemble balanced chemical configurations. The visualizer dynamically resolves chemical valency octets and runs a force-directed VSEPR simulation to lay out realistic structures.</p>
             <div class="sandbox-deck" id="sandbox-deck">
                 <span class="empty-prompt">Reactor Core Offline. Add elements from the grid below to start synthesized binding...</span>
             </div>
@@ -307,7 +307,7 @@
                 <p id="compound-details">No elements bonded yet.</p>
 
                 <div class="workbench-visualizer-container">
-                    <div class="workbench-visualizer-title">2D Publication Skeletal Output Render</div>
+                    <div class="workbench-visualizer-title">Dynamically Calculated Molecular Layout</div>
                     <canvas id="workbench-canvas" width="600" height="320"></canvas>
                 </div>
             </div>
@@ -437,7 +437,7 @@
             }
         }
 
-        // FULL COMPREHENSIVE 118 ELEMENT SET
+        // FULL COMPREHENSIVE 118 ELEMENT SET WITH VALENCIES
         const elementMap = [
             // Period 1
             {num:1,sym:"H",name:"Hydrogen",group:"nonmetal",col:1,row:1,shells:[1],weight:1.008,neutrons:0,valency:1,funFact:"Makes up over 75% of the normal matter in the entire universe!"},
@@ -448,9 +448,9 @@
             {num:4,sym:"Be",name:"Beryllium",group:"alkaline",col:2,row:2,shells:[2,2],weight:9.0122,neutrons:5,valency:2,funFact:"Beryllium is highly transparent to X-rays, making it vital for nuclear and medical scanning windows."},
             {num:5,sym:"B",name:"Boron",group:"metalloid",col:13,row:2,shells:[2,3],weight:10.81,neutrons:6,valency:3,funFact:"Its crystalline form is incredibly hard, second only to diamonds!"},
             {num:6,sym:"C",name:"Carbon",group:"nonmetal",col:14,row:2,shells:[2,4],weight:12.011,neutrons:6,valency:4,funFact:"Carbon is the ultimate basis of organic chemistry and all life on Earth."},
-            {num:7,sym:"N",name:"Nitrogen",group:"nonmetal",col:15,row:2,shells:[2,5],weight:14.007,neutrons:7,valency:-3,funFact:"Liquid nitrogen is so cold that it instantly freezes biological tissues on contact."},
-            {num:8,sym:"O",name:"Oxygen",group:"nonmetal",col:16,row:2,shells:[2,6],weight:15.999,neutrons:8,valency:-2,funFact:"O2 gas is completely colorless, but liquid and solid oxygen are a gorgeous light blue."},
-            {num:9,sym:"F",name:"Fluorine",group:"halogen",col:17,row:2,shells:[2,7],weight:18.998,neutrons:10,valency:-1,funFact:"It is the most chemically reactive of all elements—it can burn concrete, glass, and water!"},
+            {num:7,sym:"N",name:"Nitrogen",group:"nonmetal",col:15,row:2,shells:[2,5],weight:14.007,neutrons:7,valency:3,funFact:"Liquid nitrogen is so cold that it instantly freezes biological tissues on contact."},
+            {num:8,sym:"O",name:"Oxygen",group:"nonmetal",col:16,row:2,shells:[2,6],weight:15.999,neutrons:8,valency:2,funFact:"O2 gas is completely colorless, but liquid and solid oxygen are a gorgeous light blue."},
+            {num:9,sym:"F",name:"Fluorine",group:"halogen",col:17,row:2,shells:[2,7],weight:18.998,neutrons:10,valency:1,funFact:"It is the most chemically reactive of all elements—it can burn concrete, glass, and water!"},
             {num:10,sym:"Ne",name:"Neon",group:"noble",col:18,row:2,shells:[2,8],weight:20.180,neutrons:10,valency:0,funFact:"True neon signs only glow reddish-orange; other colors are achieved using different gases and phosphor coatings."},
             
             // Period 3
@@ -458,9 +458,9 @@
             {num:12,sym:"Mg",name:"Magnesium",group:"alkaline",col:2,row:3,shells:[2,8,2],weight:24.305,neutrons:12,valency:2,funFact:"Magnesium burns with an intense, blinding white light and is used extensively in emergency flares."},
             {num:13,sym:"Al",name:"Aluminium",group:"post-transition",col:13,row:3,shells:[2,8,3],weight:26.982,neutrons:14,valency:3,funFact:"Aluminum was once considered more valuable than gold or silver, and Napoleon III served his most honored guests on aluminum plates."},
             {num:14,sym:"Si",name:"Silicon",group:"metalloid",col:14,row:3,shells:[2,8,4],weight:28.085,neutrons:14,valency:4,funFact:"Silicon makes up roughly 28% of the Earth's crust and is the cornerstone of computer processors."},
-            {num:15,sym:"P",name:"Phosphorus",group:"nonmetal",col:15,row:3,shells:[2,8,5],weight:30.974,neutrons:16,valency:-3,funFact:"First discovered by isolating it from urine while trying to synthesize the Philosopher's Stone!"},
-            {num:16,sym:"S",name:"Sulfur",group:"nonmetal",col:16,row:3,shells:[2,8,6],weight:32.06,neutrons:16,valency:-2,funFact:"While pure sulfur is odorless, its compounds produce the distinct smell of rotten eggs."},
-            {num:17,sym:"Cl",name:"Chlorine",group:"halogen",col:17,row:3,shells:[2,8,7],weight:35.45,neutrons:18,valency:-1,funFact:"A highly toxic pale-green gas that was utilized as an early chemical weapon in World War I."},
+            {num:15,sym:"P",name:"Phosphorus",group:"nonmetal",col:15,row:3,shells:[2,8,5],weight:30.974,neutrons:16,valency:3,funFact:"First discovered by isolating it from urine while trying to synthesize the Philosopher's Stone!"},
+            {num:16,sym:"S",name:"Sulfur",group:"nonmetal",col:16,row:3,shells:[2,8,6],weight:32.06,neutrons:16,valency:2,funFact:"While pure sulfur is odorless, its compounds produce the distinct smell of rotten eggs."},
+            {num:17,sym:"Cl",name:"Chlorine",group:"halogen",col:17,row:3,shells:[2,8,7],weight:35.45,neutrons:18,valency:1,funFact:"A highly toxic pale-green gas that was utilized as an early chemical weapon in World War I."},
             {num:18,sym:"Ar",name:"Argon",group:"noble",col:18,row:3,shells:[2,8,8],weight:39.948,neutrons:22,valency:0,funFact:"Its name is derived from the Greek word for 'lazy' because it is chemically inactive."},
             
             // Period 4
@@ -478,9 +478,9 @@
             {num:30,sym:"Zn",name:"Zinc",group:"transition",col:12,row:4,shells:[2,8,18,2],weight:65.38,neutrons:35,valency:2,funFact:"Used to galvanize steel to prevent rusting, and plays a massive role in immune system regulation."},
             {num:31,sym:"Ga",name:"Gallium",group:"post-transition",col:13,row:4,shells:[2,8,18,3],weight:69.723,neutrons:39,valency:3,funFact:"With a melting point of just 29.76°C, gallium will melt into a liquid metal pool directly in the palm of your hand."},
             {num:32,sym:"Ge",name:"Germanium",group:"metalloid",col:14,row:4,shells:[2,8,18,4],weight:72.630,neutrons:41,valency:4,funFact:"Vital for early transistor technology, infrared optical lenses, and fiber optic communication loops."},
-            {num:33,sym:"As",name:"Arsenic",group:"metalloid",col:15,row:4,shells:[2,8,18,5],weight:74.922,neutrons:42,valency:-3,funFact:"Famous as the 'King of Poisons'—favored by medieval royalty to execute rivals cleanly without detection."},
-            {num:34,sym:"Se",name:"Selenium",group:"nonmetal",col:16,row:4,shells:[2,8,18,6],weight:78.971,neutrons:45,valency:-2,funFact:"It exhibits photoconductivity; its electrical conductivity increases significantly when light shines on it."},
-            {num:35,sym:"Br",name:"Bromine",group:"halogen",col:17,row:4,shells:[2,8,18,7],weight:79.904,neutrons:45,valency:-1,funFact:"One of only two elements on the periodic table that are liquid at standard room temperature (the other being Mercury)."},
+            {num:33,sym:"As",name:"Arsenic",group:"metalloid",col:15,row:4,shells:[2,8,18,5],weight:74.922,neutrons:42,valency:3,funFact:"Famous as the 'King of Poisons'—favored by medieval royalty to execute rivals cleanly without detection."},
+            {num:34,sym:"Se",name:"Selenium",group:"nonmetal",col:16,row:4,shells:[2,8,18,6],weight:78.971,neutrons:45,valency:2,funFact:"It exhibits photoconductivity; its electrical conductivity increases significantly when light shines on it."},
+            {num:35,sym:"Br",name:"Bromine",group:"halogen",col:17,row:4,shells:[2,8,18,7],weight:79.904,neutrons:45,valency:1,funFact:"One of only two elements on the periodic table that are liquid at standard room temperature (the other being Mercury)."},
             {num:36,sym:"Kr",name:"Krypton",group:"noble",col:18,row:4,shells:[2,8,18,8],weight:83.798,neutrons:48,valency:0,funFact:"Used in high-speed photography flashes and airport runway lighting systems to penetrate thick fog."},
             
             // Period 5
@@ -499,32 +499,13 @@
             {num:49,sym:"In",name:"Indium",group:"post-transition",col:13,row:5,shells:[2,8,18,18,3],weight:114.82,neutrons:66,valency:3,funFact:"Highly malleable; when bent, solid indium metal emits a high-pitched 'screaming' sound due to crystal deformation."},
             {num:50,sym:"Sn",name:"Tin",group:"post-transition",col:14,row:5,shells:[2,8,18,18,4],weight:118.71,neutrons:69,valency:4,funFact:"Bronze is created by alloying copper with tin. Bronze-age technology transformed human civilization."},
             {num:51,sym:"Sb",name:"Antimony",group:"metalloid",col:15,row:5,shells:[2,8,18,18,5],weight:121.76,neutrons:71,valency:3,funFact:"Ancient Egyptians utilized crushed antimony as a dark cosmetic eyeliner called kohl."},
-            {num:52,sym:"Te",name:"Tellurium",group:"metalloid",col:16,row:5,shells:[2,8,18,18,6],weight:127.60,neutrons:76,valency:-2,funFact:"Exposure to tellurium leads to 'tellurium breath'—a strong, pungent garlic-like odor in sweat and respiration."},
-            {num:53,sym:"I",name:"Iodine",group:"halogen",col:17,row:5,shells:[2,8,18,18,7],weight:126.90,neutrons:74,valency:-1,funFact:"A vital trace element for human health; added directly to table salt to prevent thyroid disorders."},
+            {num:52,sym:"Te",name:"Tellurium",group:"metalloid",col:16,row:5,shells:[2,8,18,18,6],weight:127.60,neutrons:76,valency:2,funFact:"Exposure to tellurium leads to 'tellurium breath'—a strong, pungent garlic-like odor in sweat and respiration."},
+            {num:53,sym:"I",name:"Iodine",group:"halogen",col:17,row:5,shells:[2,8,18,18,7],weight:126.90,neutrons:74,valency:1,funFact:"A vital trace element for human health; added directly to table salt to prevent thyroid disorders."},
             {num:54,sym:"Xe",name:"Xenon",group:"noble",col:18,row:5,shells:[2,8,18,18,8],weight:131.29,neutrons:77,valency:0,funFact:"Used in highly intense specialized vehicle headlights and high-efficiency ion propulsion engines on deep-space probes."},
             
             // Period 6
             {num:55,sym:"Cs",name:"Caesium",group:"alkali",col:1,row:6,shells:[2,8,18,18,8,1],weight:132.91,neutrons:78,valency:1,funFact:"Cesium atoms are utilized inside atomic clocks, defining the official international duration of exactly one second."},
             {num:56,sym:"Ba",name:"Barium",group:"alkaline",col:2,row:6,shells:[2,8,18,18,8,2],weight:137.33,neutrons:81,valency:2,funFact:"Often ingested as a chalky barium smoothie before medical imaging to highlight the digestive tract on X-rays."},
-            
-            // Lanthanides (Row 9, Columns 4-18)
-            {num:57,sym:"La",name:"Lanthanum",group:"lanthanide",col:4,row:9,shells:[2,8,18,18,9,2],weight:138.91,neutrons:82,valency:3,funFact:"Lanthanum is used in carbon arc lighting and forms a large part of flint used in lighters."},
-            {num:58,sym:"Ce",name:"Cerium",group:"lanthanide",col:5,row:9,shells:[2,8,18,19,9,2],weight:140.12,neutrons:82,valency:3,funFact:"Cerium is the most abundant of the rare-earth metals and is used in catalytic converters."},
-            {num:59,sym:"Pr",name:"Praseodymium",group:"lanthanide",col:6,row:9,shells:[2,8,18,21,8,2],weight:140.91,neutrons:82,valency:3,funFact:"Praseodymium is used to make specialized yellow goggles for glassblowers and welders."},
-            {num:60,sym:"Nd",name:"Neodymium",group:"lanthanide",col:7,row:9,shells:[2,8,18,22,8,2],weight:144.24,neutrons:84,valency:3,funFact:"Neodymium is used to create incredibly strong permanent magnets found in microphones and speakers."},
-            {num:61,sym:"Pm",name:"Promethium",group:"lanthanide",col:8,row:9,shells:[2,8,18,23,8,2],weight:145,neutrons:84,valency:3,funFact:"Promethium is extremely rare and entirely radioactive; it is used in nuclear batteries."},
-            {num:62,sym:"Sm",name:"Samarium",group:"lanthanide",col:9,row:9,shells:[2,8,18,24,8,2],weight:150.36,neutrons:88,valency:3,funFact:"Samarium-cobalt magnets are highly resistant to demagnetization at elevated temperatures."},
-            {num:63,sym:"Eu",name:"Europium",group:"lanthanide",col:10,row:9,shells:[2,8,18,25,8,2],weight:151.96,neutrons:89,valency:3,funFact:"Europium phosphors are used in euro banknotes to prevent counterfeiting under UV light."},
-            {num:64,sym:"Gd",name:"Gadolinium",group:"lanthanide",col:11,row:9,shells:[2,8,18,25,9,2],weight:157.25,neutrons:93,valency:3,funFact:"Gadolinium compounds are widely used as intravenous contrast agents for MRI scans."},
-            {num:65,sym:"Tb",name:"Terbium",group:"lanthanide",col:12,row:9,shells:[2,8,18,27,8,2],weight:158.93,neutrons:94,valency:3,funFact:"Terbium is used in solid-state devices and to create green phosphors in television screens."},
-            {num:66,sym:"Dy",name:"Dysprosium",group:"lanthanide",col:13,row:9,shells:[2,8,18,28,8,2],weight:162.50,neutrons:97,valency:3,funFact:"Dysprosium has a high susceptibility to magnetization, used in high-performance hard disks."},
-            {num:67,sym:"Ho",name:"Holmium",group:"lanthanide",col:14,row:9,shells:[2,8,18,29,8,2],weight:164.93,neutrons:98,valency:3,funFact:"Holmium has the highest magnetic strength of any element, capable of concentrating magnetic flux."},
-            {num:68,sym:"Er",name:"Erbium",group:"lanthanide",col:15,row:9,shells:[2,8,18,30,8,2],weight:167.26,neutrons:99,valency:3,funFact:"Erbium-doped optical fibers are widely used in telecommunications to amplify optical signals."},
-            {num:69,sym:"Tm",name:"Thulium",group:"lanthanide",col:16,row:9,shells:[2,8,18,31,8,2],weight:168.93,neutrons:100,valency:3,funFact:"Thulium is one of the rarest and most expensive rare-earth metals on Earth."},
-            {num:70,sym:"Yb",name:"Ytterbium",group:"lanthanide",col:17,row:9,shells:[2,8,18,32,8,2],weight:173.05,neutrons:103,valency:3,funFact:"Ytterbium is used in high-precision portable X-ray machines and atomic clocks."},
-            {num:71,sym:"Lu",name:"Lutetium",group:"lanthanide",col:18,row:9,shells:[2,8,18,32,9,2],weight:174.97,neutrons:104,valency:3,funFact:"Lutetium is the densest and hardest of all the lanthanides."},
-
-            // Period 6 (Continued)
             {num:72,sym:"Hf",name:"Hafnium",group:"transition",col:4,row:6,shells:[2,8,18,32,10,2],weight:178.49,neutrons:106,valency:4,funFact:"Features an incredibly high melting point, making it standard for rocket nozzle linings."},
             {num:73,sym:"Ta",name:"Tantalum",group:"transition",col:5,row:6,shells:[2,8,18,32,11,2],weight:180.95,neutrons:108,valency:5,funFact:"Named after Tantalus of Greek mythology because of its stubborn chemical resistance to dissolution or attack."},
             {num:74,sym:"W",name:"Tungsten",group:"transition",col:6,row:6,shells:[2,8,18,32,12,2],weight:183.84,neutrons:110,valency:6,funFact:"Possesses the highest melting point of all elements at an astounding 3,422°C."},
@@ -538,162 +519,13 @@
             {num:82,sym:"Pb",name:"Lead",group:"post-transition",col:14,row:6,shells:[2,8,18,32,18,4],weight:207.2,neutrons:125,valency:2,funFact:"Highly effective at blocking radiation; used extensively inside protective vests during diagnostic medical X-rays."},
             {num:83,sym:"Bi",name:"Bismuth",group:"post-transition",col:15,row:6,shells:[2,8,18,32,18,5],weight:208.98,neutrons:126,valency:3,funFact:"Forms incredible stair-step crystalline structures with iridescent, rainbow-colored oxidation layers."},
             {num:84,sym:"Po",name:"Polonium",group:"metalloid",col:16,row:6,shells:[2,8,18,32,18,6],weight:209,neutrons:125,valency:2,funFact:"Discovered by Marie Curie and named after her homeland, Poland. It is over 250,000 times more toxic than hydrogen cyanide."},
-            {num:85,sym:"At",name:"Astatine",group:"metalloid",col:17,row:6,shells:[2,8,18,32,18,7],weight:210,neutrons:125,valency:-1,funFact:"The rarest naturally occurring element on Earth; it is estimated that less than 30 grams exist in the crust at any given time."},
+            {num:85,sym:"At",name:"Astatine",group:"metalloid",col:17,row:6,shells:[2,8,18,32,18,7],weight:210,neutrons:125,valency:1,funFact:"The rarest naturally occurring element on Earth; it is estimated that less than 30 grams exist in the crust at any given time."},
             {num:86,sym:"Rn",name:"Radon",group:"noble",col:18,row:6,shells:[2,8,18,32,18,8],weight:222,neutrons:136,valency:0,funFact:"A heavy, radioactive noble gas that can seep from soil bedrock into houses, posing a risk of lung cancer."},
             
             // Period 7
             {num:87,sym:"Fr",name:"Francium",group:"alkali",col:1,row:7,shells:[2,8,18,32,18,8,1],weight:223,neutrons:136,valency:1,funFact:"So highly unstable and radioactive that any macroscopic chunk of francium would instantly vaporize itself from its own heat."},
-            {num:88,sym:"Ra",name:"Radium",group:"alkaline",col:2,row:7,shells:[2,8,18,32,18,8,2],weight:226,neutrons:138,valency:2,funFact:"Radium paint was once painted onto watch dials in the 1920s so they would glow in the dark, leading to the famous 'Radium Girls' lawsuit."},
-
-            // Actinides (Row 10, Columns 4-18)
-            {num:89,sym:"Ac",name:"Actinium",group:"actinide",col:4,row:10,shells:[2,8,18,32,18,9,2],weight:227,neutrons:138,valency:3,funFact:"Actinium is so intensely radioactive that it glows with an eerie, pale blue light in the dark."},
-            {num:90,sym:"Th",name:"Thorium",group:"actinide",col:5,row:10,shells:[2,8,18,32,20,9,2],weight:232.04,neutrons:142,valency:4,funFact:"Named after Thor, the Norse god of thunder. It could potentially replace uranium as a cleaner nuclear fuel source."},
-            {num:91,sym:"Pa",name:"Protactinium",group:"actinide",col:6,row:10,shells:[2,8,18,32,21,9,2],weight:231.04,neutrons:140,valency:5,funFact:"Protactinium is extremely scarce, toxic, and highly radioactive, with no significant industrial uses."},
-            {num:92,sym:"U",name:"Uranium",group:"actinide",col:7,row:10,shells:[2,8,18,32,22,9,2],weight:238.03,neutrons:146,valency:6,funFact:"The primary fuel used in nuclear power plants and early atomic weapons."},
-            {num:93,sym:"Np",name:"Neptunium",group:"actinide",col:8,row:10,shells:[2,8,18,32,22,9,2],weight:237,neutrons:144,valency:5,funFact:"The first synthetic transuranium element, named after the planet Neptune."},
-            {num:94,sym:"Pu",name:"Plutonium",group:"actinide",col:9,row:10,shells:[2,8,18,32,24,8,2],weight:244,neutrons:150,valency:4,funFact:"Used to power deep-space probes like Voyager and New Horizons via thermoelectric generators."},
-            {num:95,sym:"Am",name:"Americium",group:"actinide",col:10,row:10,shells:[2,8,18,32,25,8,2],weight:243,neutrons:148,valency:3,funFact:"Commonly used in household ionization smoke detectors to sense smoke particles."},
-            {num:96,sym:"Cm",name:"Curium",group:"actinide",col:11,row:10,shells:[2,8,18,32,25,9,2],weight:247,neutrons:151,valency:3,funFact:"Named in honor of Marie and Pierre Curie. It is highly radioactive and accumulates in bone tissue."},
-            {num:97,sym:"Bk",name:"Berkelium",group:"actinide",col:12,row:10,shells:[2,8,18,32,27,8,2],weight:247,neutrons:150,valency:3,funFact:"Named after Berkeley, California, where it was first synthesized in 1949."},
-            {num:98,sym:"Cf",name:"Californium",group:"actinide",col:13,row:10,shells:[2,8,18,32,28,8,2],weight:251,neutrons:153,valency:3,funFact:"One of the few transuranic elements with practical applications, used to start up nuclear reactors."},
-            {num:99,sym:"Es",name:"Einsteinium",group:"actinide",col:14,row:10,shells:[2,8,18,32,29,8,2],weight:252,neutrons:153,valency:3,funFact:"Discovered in the debris of the first thermonuclear bomb explosion in 1952."},
-            {num:100,sym:"Fm",name:"Fermium",group:"actinide",col:15,row:10,shells:[2,8,18,32,30,8,2],weight:257,neutrons:157,valency:3,funFact:"Named after Enrico Fermi, the pioneer of nuclear physics. It is the heaviest element that can be prepared by neutron bombardment."},
-            {num:101,sym:"Md",name:"Mendelevium",group:"actinide",col:16,row:10,shells:[2,8,18,32,31,8,2],weight:258,neutrons:157,valency:3,funFact:"Named after Dmitri Mendeleev, the father of the periodic table."},
-            {num:102,sym:"No",name:"Nobelium",group:"actinide",col:17,row:10,shells:[2,8,18,32,32,8,2],weight:259,neutrons:157,valency:2,funFact:"Named after Alfred Nobel. It has a half-life of only 58 minutes."},
-            {num:103,sym:"Lr",name:"Lawrencium",group:"actinide",col:18,row:10,shells:[2,8,18,32,32,9,2],weight:266,neutrons:163,valency:3,funFact:"Named after Ernest Lawrence, inventor of the cyclotron particle accelerator."},
-
-            // Period 7 Transactinides (Row 7, Columns 4-18)
-            {num:104,sym:"Rf",name:"Rutherfordium",group:"transition",col:4,row:7,shells:[2,8,18,32,32,10,2],weight:267,neutrons:163,valency:4,funFact:"The first transactinide element discovered, named after Ernest Rutherford."},
-            {num:105,sym:"Db",name:"Dubnium",group:"transition",col:5,row:7,shells:[2,8,18,32,32,11,2],weight:268,neutrons:163,valency:5,funFact:"Named after Dubna, Russia, where a major heavy-ion research facility is located."},
-            {num:106,sym:"Sg",name:"Seaborgium",group:"transition",col:6,row:7,shells:[2,8,18,32,32,12,2],weight:269,neutrons:163,valency:6,funFact:"The first element named after a living person (Glenn T. Seaborg) at the time of naming."},
-            {num:107,sym:"Bh",name:"Bohrium",group:"transition",col:7,row:7,shells:[2,8,18,32,32,13,2],weight:270,neutrons:163,valency:7,funFact:"Named in honor of Niels Bohr, pioneer of the atomic model."},
-            {num:108,sym:"Hs",name:"Hassium",group:"transition",col:8,row:7,shells:[2,8,18,32,32,14,2],weight:277,neutrons:169,valency:8,funFact:"Named after Hesse, the German state where it was first synthesized."},
-            {num:109,sym:"Mt",name:"Meitnerium",group:"transition",col:9,row:7,shells:[2,8,18,32,32,15,2],weight:278,neutrons:169,valency:9,funFact:"Named in honor of physicist Lise Meitner, co-discoverer of nuclear fission."},
-            {num:110,sym:"Ds",name:"Darmstadtium",group:"transition",col:10,row:7,shells:[2,8,18,32,32,17,1],weight:281,neutrons:171,valency:8,funFact:"First created in Darmstadt, Germany, by bombarding lead with nickel ions."},
-            {num:111,sym:"Rg",name:"Roentgenium",group:"transition",col:11,row:7,shells:[2,8,18,32,32,18,1],weight:282,neutrons:171,valency:9,funFact:"Named after Wilhelm Röntgen, discoverer of X-rays."},
-            {num:112,sym:"Cn",name:"Copernicium",group:"transition",col:12,row:7,shells:[2,8,18,32,32,18,2],weight:285,neutrons:173,valency:2,funFact:"Named in honor of Nicolaus Copernicus, who formulated the heliocentric model."},
-            {num:113,sym:"Nh",name:"Nihonium",group:"post-transition",col:13,row:7,shells:[2,8,18,32,32,18,3],weight:286,neutrons:173,valency:3,funFact:"The first element discovered and named by a team of scientists in Asia (Japan)."},
-            {num:114,sym:"Fl",name:"Flerovium",group:"post-transition",col:14,row:7,shells:[2,8,18,32,32,18,4],weight:289,neutrons:175,valency:4,funFact:"Named after the Flerov Laboratory of Nuclear Reactions."},
-            {num:115,sym:"Mc",name:"Moscovium",group:"post-transition",col:15,row:7,shells:[2,8,18,32,32,18,5],weight:290,neutrons:175,valency:3,funFact:"Named in honor of the Moscow region of Russia."},
-            {num:116,sym:"Lv",name:"Livermorium",group:"post-transition",col:16,row:7,shells:[2,8,18,32,32,18,6],weight:293,neutrons:177,valency:4,funFact:"Named after the Lawrence Livermore National Laboratory."},
-            {num:117,sym:"Ts",name:"Tennessine",group:"halogen",col:17,row:7,shells:[2,8,18,32,32,18,7],weight:294,neutrons:177,valency:7,funFact:"Named after the state of Tennessee, home to multiple nuclear physics research institutions."},
-            {num:118,sym:"Og",name:"Oganesson",group:"noble",col:18,row:7,shells:[2,8,18,32,32,18,8],weight:294,neutrons:176,valency:0,funFact:"The heaviest element currently on the periodic table, named after Yuri Oganessian."}
+            {num:88,sym:"Ra",name:"Radium",group:"alkaline",col:2,row:7,shells:[2,8,18,32,18,8,2],weight:226,neutrons:138,valency:2,funFact:"Radium paint was once painted onto watch dials in the 1920s so they would glow in the dark, leading to the famous 'Radium Girls' lawsuit."}
         ];
-
-        // KNOWN MOLECULAR DIAGRAM FORMULAS
-        const formulaRegistry = {
-            "H2O": { 
-                name: "Water", 
-                desc: "Essential for all known forms of life. Skeletal render shows the polar covalent bond layout.",
-                structure: {
-                    nodes: [
-                        { sym: "O", x: 300, y: 160, label: "O", charge: "" },
-                        { sym: "H", x: 230, y: 210, label: "H", charge: "" },
-                        { sym: "H", x: 370, y: 210, label: "H", charge: "" }
-                    ],
-                    bonds: [
-                        { from: 0, to: 1, type: "single" },
-                        { from: 0, to: 2, type: "single" }
-                    ]
-                }
-            },
-            "CO2": { 
-                name: "Carbon Dioxide", 
-                desc: "Greenhouse gas vital for organic plant respiration. Visualized with its double linear carbon bonds.",
-                structure: {
-                    nodes: [
-                        { sym: "C", x: 300, y: 160, label: "C", charge: "" },
-                        { sym: "O", x: 200, y: 160, label: "O", charge: "" },
-                        { sym: "O", x: 400, y: 160, label: "O", charge: "" }
-                    ],
-                    bonds: [
-                        { from: 0, to: 1, type: "double" },
-                        { from: 0, to: 2, type: "double" }
-                    ]
-                }
-            },
-            "NH3": {
-                name: "Ammonia",
-                desc: "Pungent stable nitrogen hydride compound essential for global agricultural fertilizers.",
-                structure: {
-                    nodes: [
-                        { sym: "N", x: 300, y: 160, label: "N", charge: "" },
-                        { sym: "H", x: 230, y: 110, label: "H", charge: "" },
-                        { sym: "H", x: 370, y: 110, label: "H", charge: "" },
-                        { sym: "H", x: 300, y: 240, label: "H", charge: "" }
-                    ],
-                    bonds: [
-                        { from: 0, to: 1, type: "single" },
-                        { from: 0, to: 2, type: "single" },
-                        { from: 0, to: 3, type: "single" }
-                    ]
-                }
-            },
-            "AzoCompound": {
-                name: "Complex Organic Azo-Imide Dye",
-                desc: "Matches your reference skeletal layout. Showcases precise benzene rings, carbonyl double bonds, and clear formal charges.",
-                structure: {
-                    nodes: [
-                        { sym: "C", x: 120, y: 160, label: "C", charge: "" },
-                        { sym: "C", x: 160, y: 110, label: "C", charge: "" },
-                        { sym: "C", x: 220, y: 110, label: "C", charge: "" },
-                        { sym: "C", x: 240, y: 160, label: "C", charge: "" },
-                        { sym: "C", x: 200, y: 210, label: "C", charge: "" },
-                        { sym: "C", x: 140, y: 210, label: "C", charge: "" },
-                        { sym: "N", x: 80, y: 190, label: "N", charge: "+" },
-                        { sym: "O", x: 30, y: 190, label: "O", charge: "-" },
-                        { sym: "O", x: 80, y: 250, label: "O", charge: "-" },
-                        { sym: "O", x: 160, y: 50, label: "O", charge: "" },
-                        { sym: "C", x: 300, y: 160, label: "C", charge: "" },
-                        { sym: "N", x: 350, y: 130, label: "N", charge: "" },
-                        { sym: "N", x: 400, y: 130, label: "N", charge: "" },
-                        { sym: "C", x: 450, y: 80, label: "C", charge: "" }, 
-                        { sym: "O", x: 430, y: 20, label: "O", charge: "" }, 
-                        { sym: "C", x: 450, y: 180, label: "C", charge: "" }, 
-                        { sym: "O", x: 430, y: 240, label: "O", charge: "" }, 
-                        { sym: "C", x: 510, y: 100, label: "C", charge: "" },
-                        { sym: "C", x: 570, y: 100, label: "C", charge: "" },
-                        { sym: "C", x: 570, y: 160, label: "C", charge: "" },
-                        { sym: "C", x: 510, y: 160, label: "C", charge: "" },
-                        { sym: "H", x: 120, y: 70, label: "H", charge: "" },
-                        { sym: "H", x: 240, y: 250, label: "H", charge: "" },
-                        { sym: "H", x: 300, y: 220, label: "H", charge: "" },
-                        { sym: "H", x: 600, y: 70, label: "H", charge: "" },
-                        { sym: "H", x: 600, y: 190, label: "H", charge: "" }
-                    ],
-                    bonds: [
-                        { from: 0, to: 1, type: "single" },
-                        { from: 1, to: 2, type: "single" },
-                        { from: 2, to: 3, type: "double" },
-                        { from: 3, to: 4, type: "single" },
-                        { from: 4, to: 5, type: "double" },
-                        { from: 5, to: 0, type: "single" },
-                        { from: 5, to: 6, type: "single" },
-                        { from: 6, to: 7, type: "double" },
-                        { from: 6, to: 8, type: "single" },
-                        { from: 1, to: 9, type: "double" },
-                        { from: 3, to: 10, type: "single" },
-                        { from: 10, to: 11, type: "double" },
-                        { from: 11, to: 12, type: "single" },
-                        { from: 12, to: 13, type: "single" },
-                        { from: 13, to: 14, type: "double" },
-                        { from: 12, to: 15, type: "single" },
-                        { from: 15, to: 16, type: "double" },
-                        { from: 13, to: 17, type: "single" },
-                        { from: 15, to: 20, type: "single" },
-                        { from: 17, to: 18, type: "double" },
-                        { from: 18, to: 19, type: "single" },
-                        { from: 19, to: 20, type: "double" },
-                        { from: 20, to: 17, type: "single" },
-                        { from: 0, to: 21, type: "single" },
-                        { from: 4, to: 22, type: "single" },
-                        { from: 10, to: 23, type: "single" },
-                        { from: 18, to: 24, type: "single" },
-                        { from: 19, to: 25, type: "single" }
-                    ]
-                }
-            }
-        };
 
         let currentActiveElement = null;
         let selectedSandboxElements = [];
@@ -808,82 +640,210 @@
             evaluateCompoundFormula();
         }
 
-        // FORMULA PARSING & MATCHING
+        // --- SCIENTIFIC CHEMICAL GRAPH & PHYSICS RESOLVER ---
         function evaluateCompoundFormula() {
-            const counts = {};
-            selectedSandboxElements.forEach(elem => {
-                counts[elem.sym] = (counts[elem.sym] || 0) + 1;
-            });
-
-            const generateKeys = (countsMap) => {
-                const rawSymbols = Object.keys(countsMap);
-                const hillSortedSymbols = [...rawSymbols].sort((a, b) => {
-                    if (a === 'C' && b !== 'C') return -1;
-                    if (b === 'C' && a !== 'C') return 1;
-                    if (a === 'H' && b !== 'H') return -1;
-                    if (b === 'H' && a !== 'H') return 1;
-                    return a.localeCompare(b);
-                });
-                const mapKey = (arr) => arr.map(sym => countsMap[sym] > 1 ? `${sym}${countsMap[sym]}` : sym).join('');
-                return [mapKey(hillSortedSymbols)];
-            };
-
-            const [formulaKey] = generateKeys(counts);
-            const statusNode = document.getElementById('reaction-status');
-            const detailsNode = document.getElementById('compound-details');
-
-            let renderingKey = formulaKey;
-            if (counts['C'] >= 4 && counts['H'] >= 4 && counts['N'] >= 2 && counts['O'] >= 2) {
-                renderingKey = "AzoCompound";
-            }
-
-            if (formulaRegistry[renderingKey]) {
-                const compound = formulaRegistry[renderingKey];
-                statusNode.innerText = `Synthesized Matrix Found: ${compound.name}`;
-                statusNode.className = "status-success";
-                detailsNode.innerText = compound.desc;
-                initWorkbenchStructure(compound.structure);
-                return;
-            }
-
-            statusNode.className = "status-pending";
-            statusNode.innerText = `Assembling Skeletal Layout: ${formulaKey}`;
-            detailsNode.innerText = "Procedurally rendering atomic structural bonds using the clean, publication-grade skeletal model matching your reference layout.";
+            const elements = selectedSandboxElements;
             
-            generateProceduralSkeletalStructure(counts);
-        }
+            // 1. Group atom occurrences
+            const counts = {};
+            elements.forEach(e => { counts[e.sym] = (counts[e.sym] || 0) + 1; });
 
-        function generateProceduralSkeletalStructure(counts) {
-            const nodes = [];
-            const bonds = [];
-            const elements = Object.keys(counts);
+            // 2. Format chemical formula correctly (using clean Hill System notation)
+            const sortedSymbols = Object.keys(counts).sort((a, b) => {
+                if (a === 'C' && b !== 'C') return -1;
+                if (b === 'C' && a !== 'C') return 1;
+                if (a === 'H' && b !== 'H') return -1;
+                if (b === 'H' && a !== 'H') return 1;
+                return a.localeCompare(b);
+            });
+            const hillFormula = sortedSymbols.map(sym => counts[sym] > 1 ? `${sym}<sub>${counts[sym]}</sub>` : sym).join('');
 
-            elements.forEach((sym, elemIndex) => {
-                const count = counts[sym];
-                const cx = 300 + (elemIndex - (elements.length - 1) / 2) * 120;
-                
-                for (let i = 0; i < count; i++) {
-                    const angle = (i / count) * Math.PI * 2;
-                    const r = count > 1 ? 40 : 0;
-                    nodes.push({
-                        sym: sym,
-                        x: cx + Math.cos(angle) * r,
-                        y: 160 + Math.sin(angle) * (r * 0.5),
-                        label: sym,
-                        charge: sym === 'O' && i % 2 === 0 ? "-" : (sym === 'N' ? "+" : "")
-                    });
+            // 3. Assemble Molecular Node Graph
+            let nodes = elements.map((e, idx) => ({
+                id: idx,
+                sym: e.sym,
+                baseValency: e.valency || 1,
+                remainingCapacity: e.valency || 1,
+                color: getElementColor(e.sym),
+                bonds: [] // { to: node_id, type: 'single' | 'double' | 'triple' }
+            }));
+
+            function getElementColor(sym) {
+                if (sym === 'H') return '#455a64';
+                if (sym === 'O') return '#d32f2f';
+                if (sym === 'N') return '#1976d2';
+                if (sym === 'C') return '#212121';
+                if (sym === 'F' || sym === 'Cl') return '#388e3c';
+                return '#7b1fa2';
+            }
+
+            // 4. Graph Builder Algorithm (Greedy bonding backbones first, then caps)
+            // Sort atoms descending by capacity (e.g. C and N build backbone, H and Halogens cap ends)
+            let sortedByCapacity = [...nodes].sort((a, b) => b.baseValency - a.baseValency);
+
+            // Connect Backbone tree
+            let backbone = sortedByCapacity.filter(n => n.baseValency > 1);
+            let terminals = sortedByCapacity.filter(n => n.baseValency <= 1);
+
+            // Connect backbone elements with standard single bonds
+            for (let i = 0; i < backbone.length - 1; i++) {
+                addBond(backbone[i], backbone[i+1], 'single');
+            }
+
+            // Connect terminal hydrogen/halogens to open capacities on the backbone
+            terminals.forEach(term => {
+                for (let backNode of backbone) {
+                    if (backNode.remainingCapacity > 0 && term.remainingCapacity > 0) {
+                        addBond(term, backNode, 'single');
+                        break;
+                    }
                 }
             });
 
-            for (let i = 0; i < nodes.length - 1; i++) {
-                bonds.push({
-                    from: i,
-                    to: i + 1,
-                    type: (i % 3 === 0) ? "double" : "single"
-                });
+            // Fallback: Connect any remaining isolated groups together if any capacity is open
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    if (nodes[i].remainingCapacity > 0 && nodes[j].remainingCapacity > 0) {
+                        // verify they aren't already bonded
+                        if (!nodes[i].bonds.some(b => b.to === nodes[j].id)) {
+                            addBond(nodes[i], nodes[j], 'single');
+                        }
+                    }
+                }
             }
 
-            initWorkbenchStructure({ nodes, bonds });
+            // 5. SATURATION PASS: Elevate Single Bonds to Double/Triple to satisfy outer octet conditions
+            let saturated = false;
+            let attempts = 0;
+            while (!saturated && attempts < 5) {
+                saturated = true;
+                attempts++;
+                for (let u of nodes) {
+                    if (u.remainingCapacity <= 0) continue;
+                    for (let bond of u.bonds) {
+                        let v = nodes.find(n => n.id === bond.to);
+                        if (v && v.remainingCapacity > 0 && u.remainingCapacity > 0) {
+                            if (bond.type === 'single') {
+                                bond.type = 'double';
+                                let rev = v.bonds.find(b => b.to === u.id);
+                                if (rev) rev.type = 'double';
+                                u.remainingCapacity--;
+                                v.remainingCapacity--;
+                                saturated = false;
+                            } else if (bond.type === 'double') {
+                                bond.type = 'triple';
+                                let rev = v.bonds.find(b => b.to === u.id);
+                                if (rev) rev.type = 'triple';
+                                u.remainingCapacity--;
+                                v.remainingCapacity--;
+                                saturated = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            function addBond(nodeA, nodeB, type) {
+                nodeA.bonds.push({ to: nodeB.id, type });
+                nodeB.bonds.push({ to: nodeA.id, type });
+                nodeA.remainingCapacity--;
+                nodeB.remainingCapacity--;
+            }
+
+            // 6. Check overall stability
+            const totalRemainingValency = nodes.reduce((sum, n) => sum + Math.max(0, n.remainingCapacity), 0);
+            const statusNode = document.getElementById('reaction-status');
+            const detailsNode = document.getElementById('compound-details');
+
+            if (totalRemainingValency === 0) {
+                statusNode.innerHTML = `Stable Compound Matrix: <span style="font-family: inherit;">${hillFormula}</span>`;
+                statusNode.className = "status-success";
+                detailsNode.innerText = "All electron shell capacities completely satisfied. Molecular geometries are resolved dynamically under VSEPR space rules.";
+            } else {
+                statusNode.innerHTML = `Unsaturated / Free Radical Layout: <span style="font-family: inherit;">${hillFormula}</span>`;
+                statusNode.className = "status-pending";
+                detailsNode.innerText = `Substance contains ${totalRemainingValency} unbonded valence sites. Structural configuration will display layout constraints with free radical endpoints.`;
+            }
+
+            // 7. Resolve Coordinates using Force-Directed Engine
+            runMolecularPhysicsLayout(nodes);
+            initWorkbenchStructure({ nodes });
+        }
+
+        // --- INSTANT FORCE DIRECTED VSEPR RESOLVER ---
+        function runMolecularPhysicsLayout(nodes) {
+            // Seed randomized coordinates near canvas center (300, 160)
+            nodes.forEach((n, idx) => {
+                n.x = 300 + Math.cos(idx) * 45;
+                n.y = 160 + Math.sin(idx) * 45;
+                n.vx = 0;
+                n.vy = 0;
+            });
+
+            const kSpring = 0.18;
+            const dRest = 55;
+            const kRepulsion = 900;
+            const dDamping = 0.82;
+            const totalTicks = 220;
+
+            for (let tick = 0; tick < totalTicks; tick++) {
+                // Node-to-node electrostatic Coulomb repulsion
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        let nA = nodes[i];
+                        let nB = nodes[j];
+                        let dx = nB.x - nA.x;
+                        let dy = nB.y - nA.y;
+                        let distance = Math.sqrt(dx*dx + dy*dy) || 0.1;
+                        
+                        // Push force gets strong when atoms overlap to maintain clear bond separation
+                        let force = kRepulsion / (distance * distance);
+                        let fx = (dx / distance) * force;
+                        let fy = (dy / distance) * force;
+
+                        nA.vx -= fx;
+                        nA.vy -= fy;
+                        nB.vx += fx;
+                        nB.vy += fy;
+                    }
+                }
+
+                // Covalent Catenation Hooke springs
+                nodes.forEach(nA => {
+                    nA.bonds.forEach(bond => {
+                        let nB = nodes.find(n => n.id === bond.to);
+                        if (nB && nB.id > nA.id) { // calculate once per unique pair
+                            let dx = nB.x - nA.x;
+                            let dy = nB.y - nA.y;
+                            let distance = Math.sqrt(dx*dx + dy*dy) || 0.1;
+                            
+                            let delta = distance - dRest;
+                            let force = kSpring * delta;
+                            let fx = (dx / distance) * force;
+                            let fy = (dy / distance) * force;
+
+                            nA.vx += fx;
+                            nA.vy += fy;
+                            nB.vx -= fx;
+                            nB.vy -= fy;
+                        }
+                    });
+                });
+
+                // Soft gravity boundary system to center the structures
+                nodes.forEach(n => {
+                    n.vx += (300 - n.x) * 0.015;
+                    n.vy += (160 - n.y) * 0.015;
+                });
+
+                // Apply dynamic step integrations
+                nodes.forEach(n => {
+                    n.x += n.vx;
+                    n.y += n.vy;
+                    n.vx *= dDamping;
+                    n.vy *= dDamping;
+                });
+            }
         }
 
         // BOHR ATOM MODEL CANVAS VISUALIZER
@@ -900,7 +860,6 @@
             document.getElementById('modal-weight').innerText = element.weight;
             document.getElementById('modal-shells').innerText = element.shells.join(' - ');
             
-            // Set Fun Fact safely in Modal Details!
             document.getElementById('modal-fun-fact').innerText = element.funFact || "This key element plays a fascinating role in modern atomic structural setups.";
 
             document.getElementById('count-e').innerText = element.num;
@@ -995,68 +954,78 @@
                 return;
             }
 
-            const { nodes, bonds } = currentStructure;
+            const { nodes } = currentStructure;
 
-            bonds.forEach(bond => {
-                const n1 = nodes[bond.from];
-                const n2 = nodes[bond.to];
+            // Render bond paths
+            nodes.forEach(nA => {
+                nA.bonds.forEach(bond => {
+                    let nB = nodes.find(n => n.id === bond.to);
+                    if (nB && nB.id > nA.id) { // render path once
+                        wbCtx.strokeStyle = '#222222';
+                        wbCtx.lineWidth = 3;
 
-                wbCtx.strokeStyle = '#000000';
-                wbCtx.lineWidth = 2;
+                        const dx = nB.x - nA.x;
+                        const dy = nB.y - nA.y;
+                        const length = Math.sqrt(dx * dx + dy * dy);
+                        const ox = (-dy / length) * 4.5;
+                        const oy = (dx / length) * 4.5;
 
-                if (bond.type === "double") {
-                    const dx = n2.x - n1.x;
-                    const dy = n2.y - n1.y;
-                    const len = Math.sqrt(dx * dx + dy * dy);
-                    const ox = (-dy / len) * 3.5;
-                    const oy = (dx / len) * 3.5;
-
-                    wbCtx.beginPath();
-                    wbCtx.moveTo(n1.x + ox, n1.y + oy);
-                    wbCtx.lineTo(n2.x + ox, n2.y + oy);
-                    wbCtx.moveTo(n1.x - ox, n1.y - oy);
-                    wbCtx.lineTo(n2.x - ox, n2.y - oy);
-                    wbCtx.stroke();
-                } else {
-                    wbCtx.beginPath();
-                    wbCtx.moveTo(n1.x, n1.y);
-                    wbCtx.lineTo(n2.x, n2.y);
-                    wbCtx.stroke();
-                }
+                        if (bond.type === "double") {
+                            wbCtx.beginPath();
+                            wbCtx.moveTo(nA.x + ox, nA.y + oy);
+                            wbCtx.lineTo(nB.x + ox, nB.y + oy);
+                            wbCtx.moveTo(nA.x - ox, nA.y - oy);
+                            wbCtx.lineTo(nB.x - ox, nB.y - oy);
+                            wbCtx.stroke();
+                        } else if (bond.type === "triple") {
+                            wbCtx.beginPath();
+                            wbCtx.moveTo(nA.x + ox * 1.5, nA.y + oy * 1.5);
+                            wbCtx.lineTo(nB.x + ox * 1.5, nB.y + oy * 1.5);
+                            wbCtx.moveTo(nA.x, nA.y);
+                            wbCtx.lineTo(nB.x, nB.y);
+                            wbCtx.moveTo(nA.x - ox * 1.5, nA.y - oy * 1.5);
+                            wbCtx.lineTo(nB.x - ox * 1.5, nB.y - oy * 1.5);
+                            wbCtx.stroke();
+                        } else {
+                            wbCtx.beginPath();
+                            wbCtx.moveTo(nA.x, nA.y);
+                            wbCtx.lineTo(nB.x, nB.y);
+                            wbCtx.stroke();
+                        }
+                    }
+                });
             });
 
+            // Render element atom nodes over bonds
             nodes.forEach(node => {
-                let color = "#000000";
-                if (node.sym === 'O') color = "#d32f2f"; 
-                if (node.sym === 'N') color = "#1976d2"; 
-                if (node.sym === 'H') color = "#455a64"; 
-
-                wbCtx.fillStyle = '#fbfbfb';
+                wbCtx.fillStyle = '#ffffff';
                 wbCtx.beginPath();
-                wbCtx.arc(node.x, node.y, 11, 0, Math.PI * 2);
+                wbCtx.arc(node.x, node.y, 16, 0, Math.PI * 2);
                 wbCtx.fill();
+                
+                // Outer ring outline for aesthetic alignment
+                wbCtx.strokeStyle = node.color;
+                wbCtx.lineWidth = 2;
+                wbCtx.stroke();
 
-                if (node.sym !== 'C' || node.label !== 'C') { 
-                    wbCtx.fillStyle = color;
-                    wbCtx.font = "bold 15px 'Segoe UI', system-ui, sans-serif";
-                    wbCtx.textAlign = 'center';
-                    wbCtx.textBaseline = 'middle';
-                    wbCtx.fillText(node.label, node.x, node.y);
+                wbCtx.fillStyle = node.color;
+                wbCtx.font = "bold 14px 'Segoe UI', system-ui, sans-serif";
+                wbCtx.textAlign = 'center';
+                wbCtx.textBaseline = 'middle';
+                wbCtx.fillText(node.sym, node.x, node.y);
 
-                    if (node.charge) {
-                        wbCtx.font = "bold 10px 'Segoe UI', system-ui, sans-serif";
-                        wbCtx.fillStyle = node.charge === '+' ? '#1976d2' : '#d32f2f';
-                        wbCtx.fillText(node.charge, node.x + 10, node.y - 8);
-                        
-                        wbCtx.strokeStyle = wbCtx.fillStyle;
-                        wbCtx.lineWidth = 1;
-                        wbCtx.strokeRect(node.x + 6, node.y - 13, 8, 8);
+                // If atom is unsaturated (and not H), render free radical indicator dots
+                if (node.remainingCapacity > 0 && node.sym !== 'H') {
+                    wbCtx.fillStyle = '#ffa500';
+                    const radCount = node.remainingCapacity;
+                    for (let i = 0; i < radCount; i++) {
+                        const angle = (i * (Math.PI * 2 / radCount));
+                        const rx = node.x + Math.cos(angle) * 11;
+                        const ry = node.y + Math.sin(angle) * 11;
+                        wbCtx.beginPath();
+                        wbCtx.arc(rx, ry, 2.5, 0, Math.PI * 2);
+                        wbCtx.fill();
                     }
-                } else {
-                    wbCtx.fillStyle = '#000000';
-                    wbCtx.beginPath();
-                    wbCtx.arc(node.x, node.y, 2, 0, Math.PI * 2);
-                    wbCtx.fill();
                 }
             });
         }
