@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luma Periodic Table Visualizer & Sandbox</title>
-    <!-- Pointing exactly to your filename to fix the missing styling issue -->
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="Style.css">
     <style>
         /* Restructured Theme Variables for Morning (No more Pink!) */
@@ -102,7 +102,7 @@
         .status-pending { color: #ffaa00; font-weight: bold; }
         .status-error { color: #ff4b4b; font-weight: bold; }
 
-        /* Periodic Axis Structural Label Styling Alignment rules */
+        /* Structural Label Styling for Alignment */
         .table-axis-label {
             display: flex;
             align-items: center;
@@ -127,7 +127,7 @@
             margin-right: 4px;
         }
 
-        /* NEW CUSTOM BATCH STYLES */
+        /* Quantity Batch Selection Layout Controls */
         .quantity-selector-container {
             display: flex;
             align-items: center;
@@ -198,13 +198,13 @@
             margin: 0;
         }
 
-        /* WORKBENCH COMPOUND VISUALIZER CONTAINER */
+        /* Dynamic Skeletal Chemical Diagram Render */
         .workbench-visualizer-container {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #ffffff; /* Clean paper style for exact chemical diagram representation */
+            background: #ffffff; 
             border: 1px solid rgba(0, 0, 0, 0.15);
             border-radius: 12px;
             padding: 12px;
@@ -231,7 +231,7 @@
             border: 1px solid rgba(0, 0, 0, 0.08);
         }
 
-        /* Fun Fact Section Styling */
+        /* Fun Fact Element Section Styling */
         .fun-fact-box {
             margin-top: 15px;
             background: rgba(0, 255, 136, 0.06);
@@ -258,7 +258,10 @@
 <body>
 
     <header>
-        <div class="logo">Luma Element Visualizer</div>
+        <div class="logo">
+            <img src="3498146.png" alt="Luma Logo" style="width: 24px; height: 24px; margin-right: 8px; vertical-align: middle;">
+            Luma Element Visualizer
+        </div>
         <div class="theme-controls">
             <button class="theme-btn" onclick="setTheme('morning', this)" title="Solar Flare">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
@@ -295,7 +298,7 @@
                 <h3>🧪 Dynamic Molecular Workbench</h3>
                 <button class="clear-btn" onclick="clearSandbox()">Reset Deck</button>
             </div>
-            <p class="sandbox-desc">Inject multiple elements into the core. The workbench will dynamically generate matching, publication-grade skeletal chemical diagrams!</p>
+            <p class="sandbox-desc">Inject elements to assemble balanced chemical configurations. The visualizer procedurally constructs corresponding publication-grade organic skeletal structures.</p>
             <div class="sandbox-deck" id="sandbox-deck">
                 <span class="empty-prompt">Reactor Core Offline. Add elements from the grid below to start synthesized binding...</span>
             </div>
@@ -303,7 +306,6 @@
                 <h4>Reaction Status: <span id="reaction-status">Inert Balance</span></h4>
                 <p id="compound-details">No elements bonded yet.</p>
 
-                <!-- COMPOUND VISUALIZER PANEL -->
                 <div class="workbench-visualizer-container">
                     <div class="workbench-visualizer-title">2D Publication Skeletal Output Render</div>
                     <canvas id="workbench-canvas" width="600" height="320"></canvas>
@@ -343,7 +345,6 @@
                         <p id="modal-shells">-</p>
                     </div>
 
-                    <!-- RESTORED FUN FACT SECTION -->
                     <div class="fun-fact-box">
                         <h5>💡 Elemental Fun Fact</h5>
                         <p id="modal-fun-fact">Loading scientific trivia...</p>
@@ -436,7 +437,7 @@
             }
         }
 
-        // FULL 118 PERIODIC TABLE DATA MATRIX + INTEGRATED FUN FACTS
+        // FULL COMPREHENSIVE 118 ELEMENT SET
         const elementMap = [
             // Period 1
             {num:1,sym:"H",name:"Hydrogen",group:"nonmetal",col:1,row:1,shells:[1],weight:1.008,neutrons:0,valency:1,funFact:"Makes up over 75% of the normal matter in the entire universe!"},
@@ -505,7 +506,7 @@
             // Period 6
             {num:55,sym:"Cs",name:"Caesium",group:"alkali",col:1,row:6,shells:[2,8,18,18,8,1],weight:132.91,neutrons:78,valency:1,funFact:"Cesium atoms are utilized inside atomic clocks, defining the official international duration of exactly one second."},
             {num:56,sym:"Ba",name:"Barium",group:"alkaline",col:2,row:6,shells:[2,8,18,18,8,2],weight:137.33,neutrons:81,valency:2,funFact:"Often ingested as a chalky barium smoothie before medical imaging to highlight the digestive tract on X-rays."},
-            {num:72,sym:"Hf",name:"Haffium",group:"transition",col:4,row:6,shells:[2,8,18,32,10,2],weight:178.49,neutrons:106,valency:4,funFact:"Features an incredibly high melting point, making it standard for rocket nozzle linings."},
+            {num:72,sym:"Hf",name:"Hafnium",group:"transition",col:4,row:6,shells:[2,8,18,32,10,2],weight:178.49,neutrons:106,valency:4,funFact:"Features an incredibly high melting point, making it standard for rocket nozzle linings."},
             {num:73,sym:"Ta",name:"Tantalum",group:"transition",col:5,row:6,shells:[2,8,18,32,11,2],weight:180.95,neutrons:108,valency:5,funFact:"Named after Tantalus of Greek mythology because of its stubborn chemical resistance to dissolution or attack."},
             {num:74,sym:"W",name:"Tungsten",group:"transition",col:6,row:6,shells:[2,8,18,32,12,2],weight:183.84,neutrons:110,valency:6,funFact:"Possesses the highest melting point of all elements at an astounding 3,422°C."},
             {num:75,sym:"Re",name:"Rhenium",group:"transition",col:7,row:6,shells:[2,8,18,32,13,2],weight:186.21,neutrons:111,valency:4,funFact:"One of the rarest elements in Earth's crust, heavily utilized in high-temperature superalloys for jet engines."},
@@ -526,7 +527,7 @@
             {num:88,sym:"Ra",name:"Radium",group:"alkaline",col:2,row:7,shells:[2,8,18,32,18,8,2],weight:226,neutrons:138,valency:2,funFact:"Radium paint was once painted onto watch dials in the 1920s so they would glow in the dark, leading to the famous 'Radium Girls' lawsuit."}
         ];
 
-        // REGISTERED CHEMICAL COMPOSITIONS + STRUCTURE SCHEMES FOR DRAWING
+        // KNOWN MOLECULAR DIAGRAM FORMULAS
         const formulaRegistry = {
             "H2O": { 
                 name: "Water", 
@@ -575,46 +576,32 @@
                     ]
                 }
             },
-            // Publication Grade Complex Azo/Imide compound (Matching reference layout a/b)
             "AzoCompound": {
                 name: "Complex Organic Azo-Imide Dye",
                 desc: "Matches your reference skeletal layout. Showcases precise benzene rings, carbonyl double bonds, and clear formal charges.",
                 structure: {
                     nodes: [
-                        // Left Nitrophenyl ring structure
                         { sym: "C", x: 120, y: 160, label: "C", charge: "" },
                         { sym: "C", x: 160, y: 110, label: "C", charge: "" },
                         { sym: "C", x: 220, y: 110, label: "C", charge: "" },
                         { sym: "C", x: 240, y: 160, label: "C", charge: "" },
                         { sym: "C", x: 200, y: 210, label: "C", charge: "" },
                         { sym: "C", x: 140, y: 210, label: "C", charge: "" },
-                        
-                        // Nitrosyl substituent on ring bottom-left
                         { sym: "N", x: 80, y: 190, label: "N", charge: "+" },
                         { sym: "O", x: 30, y: 190, label: "O", charge: "-" },
                         { sym: "O", x: 80, y: 250, label: "O", charge: "-" },
-                        
-                        // Carbonyl on left ring top
                         { sym: "O", x: 160, y: 50, label: "O", charge: "" },
-                        
-                        // Linking Carbonyl/Azo path
                         { sym: "C", x: 300, y: 160, label: "C", charge: "" },
                         { sym: "N", x: 350, y: 130, label: "N", charge: "" },
                         { sym: "N", x: 400, y: 130, label: "N", charge: "" },
-                        
-                        // Right Phthalimide ring structure
-                        { sym: "C", x: 450, y: 80, label: "C", charge: "" }, // Top Carbonyl Carbon
-                        { sym: "O", x: 430, y: 20, label: "O", charge: "" }, // Top Carbonyl Oxygen
-                        { sym: "C", x: 450, y: 180, label: "C", charge: "" }, // Bottom Carbonyl Carbon
-                        { sym: "O", x: 430, y: 240, label: "O", charge: "" }, // Bottom Carbonyl Oxygen
-                        
-                        // Phthalimide aromatic ring
+                        { sym: "C", x: 450, y: 80, label: "C", charge: "" }, 
+                        { sym: "O", x: 430, y: 20, label: "O", charge: "" }, 
+                        { sym: "C", x: 450, y: 180, label: "C", charge: "" }, 
+                        { sym: "O", x: 430, y: 240, label: "O", charge: "" }, 
                         { sym: "C", x: 510, y: 100, label: "C", charge: "" },
                         { sym: "C", x: 570, y: 100, label: "C", charge: "" },
                         { sym: "C", x: 570, y: 160, label: "C", charge: "" },
                         { sym: "C", x: 510, y: 160, label: "C", charge: "" },
-                        
-                        // Hydrogens around rings
                         { sym: "H", x: 120, y: 70, label: "H", charge: "" },
                         { sym: "H", x: 240, y: 250, label: "H", charge: "" },
                         { sym: "H", x: 300, y: 220, label: "H", charge: "" },
@@ -622,40 +609,29 @@
                         { sym: "H", x: 600, y: 190, label: "H", charge: "" }
                     ],
                     bonds: [
-                        // Left Ring skeleton
                         { from: 0, to: 1, type: "single" },
                         { from: 1, to: 2, type: "single" },
                         { from: 2, to: 3, type: "double" },
                         { from: 3, to: 4, type: "single" },
                         { from: 4, to: 5, type: "double" },
                         { from: 5, to: 0, type: "single" },
-                        
-                        // Substituents
                         { from: 5, to: 6, type: "single" },
                         { from: 6, to: 7, type: "double" },
                         { from: 6, to: 8, type: "single" },
                         { from: 1, to: 9, type: "double" },
-                        
-                        // Bridge links
                         { from: 3, to: 10, type: "single" },
                         { from: 10, to: 11, type: "double" },
                         { from: 11, to: 12, type: "single" },
-                        
-                        // Imide Ring
                         { from: 12, to: 13, type: "single" },
                         { from: 13, to: 14, type: "double" },
                         { from: 12, to: 15, type: "single" },
                         { from: 15, to: 16, type: "double" },
-                        
-                        // Connect to right benzene
                         { from: 13, to: 17, type: "single" },
                         { from: 15, to: 20, type: "single" },
                         { from: 17, to: 18, type: "double" },
                         { from: 18, to: 19, type: "single" },
                         { from: 19, to: 20, type: "double" },
                         { from: 20, to: 17, type: "single" },
-                        
-                        // Hydrogens
                         { from: 0, to: 21, type: "single" },
                         { from: 4, to: 22, type: "single" },
                         { from: 10, to: 23, type: "single" },
@@ -674,27 +650,27 @@
             tableContainer.innerHTML = '';
             const fragment = document.createDocumentFragment();
 
-            // 1. Inject Group Labels (1 to 18) at the top header row layer
+            // 1. Group Headers (1 to 18)
             for (let col = 1; col <= 18; col++) {
                 const groupLabel = document.createElement('div');
                 groupLabel.className = 'table-axis-label group-num-label';
-                groupLabel.style.gridColumn = col + 1; // Align forward past the period gutter column
+                groupLabel.style.gridColumn = col + 1; 
                 groupLabel.style.gridRow = 1;
                 groupLabel.innerText = col;
                 fragment.appendChild(groupLabel);
             }
 
-            // 2. Inject Period Labels (1 to 7) down the left-most layout margin column
+            // 2. Period Headers (1 to 7)
             for (let row = 1; row <= 7; row++) {
                 const periodLabel = document.createElement('div');
                 periodLabel.className = 'table-axis-label period-num-label';
                 periodLabel.style.gridColumn = 1;
-                periodLabel.style.gridRow = row + 1; // Offset down past the horizontal group header row
+                periodLabel.style.gridRow = row + 1; 
                 periodLabel.innerText = row;
                 fragment.appendChild(periodLabel);
             }
 
-            // 3. Render elements
+            // 3. Render Element Nodes
             elementMap.forEach(elem => {
                 const elementCard = document.createElement('div');
                 elementCard.className = `element-card group-${elem.group}`;
@@ -779,7 +755,7 @@
             evaluateCompoundFormula();
         }
 
-        // CHEMICAL MATCHING & COMPOUND DETERMINATION
+        // FORMULA PARSING & MATCHING
         function evaluateCompoundFormula() {
             const counts = {};
             selectedSandboxElements.forEach(elem => {
@@ -803,7 +779,6 @@
             const statusNode = document.getElementById('reaction-status');
             const detailsNode = document.getElementById('compound-details');
 
-            // Force complex azo visualization if specific diverse organic mixtures are formed
             let renderingKey = formulaKey;
             if (counts['C'] >= 4 && counts['H'] >= 4 && counts['N'] >= 2 && counts['O'] >= 2) {
                 renderingKey = "AzoCompound";
@@ -818,7 +793,6 @@
                 return;
             }
 
-            // Fallback generation for dynamic mixtures (Procedural Skeletal Layout generator)
             statusNode.className = "status-pending";
             statusNode.innerText = `Assembling Skeletal Layout: ${formulaKey}`;
             detailsNode.innerText = "Procedurally rendering atomic structural bonds using the clean, publication-grade skeletal model matching your reference layout.";
@@ -826,13 +800,11 @@
             generateProceduralSkeletalStructure(counts);
         }
 
-        // PROCEDURAL GENERATION: Generates dynamic skeletal connections
         function generateProceduralSkeletalStructure(counts) {
             const nodes = [];
             const bonds = [];
             const elements = Object.keys(counts);
 
-            let indexTracker = 0;
             elements.forEach((sym, elemIndex) => {
                 const count = counts[sym];
                 const cx = 300 + (elemIndex - (elements.length - 1) / 2) * 120;
@@ -850,7 +822,6 @@
                 }
             });
 
-            // Procedurally bind elements in a backbone structure
             for (let i = 0; i < nodes.length - 1; i++) {
                 bonds.push({
                     from: i,
@@ -862,7 +833,7 @@
             initWorkbenchStructure({ nodes, bonds });
         }
 
-        // Atomic modal interactive configuration
+        // BOHR ATOM MODEL CANVAS VISUALIZER
         let animationFrameId = null;
         const canvas = document.getElementById('atom-canvas');
         const ctx = canvas.getContext('2d');
@@ -876,8 +847,8 @@
             document.getElementById('modal-weight').innerText = element.weight;
             document.getElementById('modal-shells').innerText = element.shells.join(' - ');
             
-            // POPULATE RESTORED FUN FACT
-            document.getElementById('modal-fun-fact').innerText = element.funFact || "This fascinating element contributes to the diverse, chemical landscape of modern atomic theory.";
+            // Set Fun Fact safely in Modal Details!
+            document.getElementById('modal-fun-fact').innerText = element.funFact || "This key element plays a fascinating role in modern atomic structural setups.";
 
             document.getElementById('count-e').innerText = element.num;
             document.getElementById('count-p').innerText = element.num;
@@ -950,7 +921,7 @@
 
         document.getElementById('modal-add-workbench-btn').addEventListener('click', injectActiveIntoSandbox);
 
-        // --- HIGH-ACCURACY CHEMICAL SKELETAL RENDERING ENGINE ---
+        // --- ACCURATE SKELETAL RENDERING ENGINE ---
         const wbCanvas = document.getElementById('workbench-canvas');
         const wbCtx = wbCanvas.getContext('2d');
         let currentStructure = null;
@@ -973,7 +944,6 @@
 
             const { nodes, bonds } = currentStructure;
 
-            // 1. Draw Bonds (with exact single and double parallel render alignments)
             bonds.forEach(bond => {
                 const n1 = nodes[bond.from];
                 const n2 = nodes[bond.to];
@@ -982,7 +952,6 @@
                 wbCtx.lineWidth = 2;
 
                 if (bond.type === "double") {
-                    // Calculate offset vectors for parallel lines
                     const dx = n2.x - n1.x;
                     const dy = n2.y - n1.y;
                     const len = Math.sqrt(dx * dx + dy * dy);
@@ -1003,15 +972,12 @@
                 }
             });
 
-            // 2. Draw Element Node Labels (O, N, H, C, etc.)
             nodes.forEach(node => {
-                // Determine chemistry coloring (Oxygen = Red, Nitrogen = Blue, Carbon = Hidden/Grey skeletal joint)
                 let color = "#000000";
-                if (node.sym === 'O') color = "#d32f2f"; // Chemical Red
-                if (node.sym === 'N') color = "#1976d2"; // Chemical Blue
-                if (node.sym === 'H') color = "#455a64"; // Slate Hydrogen
+                if (node.sym === 'O') color = "#d32f2f"; 
+                if (node.sym === 'N') color = "#1976d2"; 
+                if (node.sym === 'H') color = "#455a64"; 
 
-                // Clean-mask white circular backdrop under letters so lines don't clip through labels
                 wbCtx.fillStyle = '#fbfbfb';
                 wbCtx.beginPath();
                 wbCtx.arc(node.x, node.y, 11, 0, Math.PI * 2);
@@ -1024,19 +990,16 @@
                     wbCtx.textBaseline = 'middle';
                     wbCtx.fillText(node.label, node.x, node.y);
 
-                    // Draw Charge States (e.g., negative [-] and positive [+] superscripts)
                     if (node.charge) {
                         wbCtx.font = "bold 10px 'Segoe UI', system-ui, sans-serif";
                         wbCtx.fillStyle = node.charge === '+' ? '#1976d2' : '#d32f2f';
                         wbCtx.fillText(node.charge, node.x + 10, node.y - 8);
                         
-                        // Small border boxes for charge accent matching publication standards
                         wbCtx.strokeStyle = wbCtx.fillStyle;
                         wbCtx.lineWidth = 1;
                         wbCtx.strokeRect(node.x + 6, node.y - 13, 8, 8);
                     }
                 } else {
-                    // Carbon nodes represent empty skeletal joints in classic structures
                     wbCtx.fillStyle = '#000000';
                     wbCtx.beginPath();
                     wbCtx.arc(node.x, node.y, 2, 0, Math.PI * 2);
